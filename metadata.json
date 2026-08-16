@@ -1,0 +1,6 @@
+{
+  "name": "DevLingo",
+  "description": "Uma plataforma gamificada de aprendizado de idiomas focada em desenvolvedores, com simulações de entrevistas técnicas e feedback por IA.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

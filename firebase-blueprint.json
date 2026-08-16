@@ -1,0 +1,88 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Information about the developer and their progress.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "area": { "type": "string", "enum": ["Frontend", "Backend", "Full-Stack", "DevOps", "Mobile", "Data"] },
+        "level": { "type": "integer" },
+        "xp": { "type": "integer" },
+        "streak": { "type": "integer" },
+        "streakShieldActive": { "type": "boolean" },
+        "lostStreak": { "type": "integer" },
+        "issuesResolved": { "type": "integer" },
+        "correctAnswers": { "type": "integer" },
+        "totalAnswers": { "type": "integer" },
+        "completedLessons": { "type": "array", "items": { "type": "string" } },
+        "reviewedWords": { "type": "array", "items": { "type": "string" } },
+        "lastActive": { "type": "string", "format": "date-time" },
+        "techStack": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["uid", "name", "email", "level", "xp"]
+    },
+    "Progress": {
+      "title": "Lesson Progress",
+      "description": "Records of completed lessons or challenges.",
+      "type": "object",
+      "properties": {
+        "lessonId": { "type": "string" },
+        "completedAt": { "type": "string", "format": "date-time" },
+        "xpEarned": { "type": "integer" },
+        "feedback": { "type": "string" }
+      },
+      "required": ["lessonId", "completedAt", "xpEarned"]
+    },
+    "PreRegistrationLead": {
+      "title": "Pré-Registro / Lead",
+      "description": "Dados do usuário cadastrado na análise de vaga para a área admin.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "area": { "type": "string" },
+        "knownTechs": { "type": "array", "items": { "type": "string" } },
+        "customTechs": { "type": "string" },
+        "hasCourse": { "type": "string" },
+        "courseDetails": { "type": "string" },
+        "jobContext": { "type": "object" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["name", "email", "phone", "area"]
+    },
+    "StudyPlan": {
+      "title": "Study Plan",
+      "description": "Personalized study plan for the user.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "goal": { "type": "string" },
+        "sections": { "type": "array", "items": { "type": "object" } },
+        "currentModule": { "type": "string" }
+      },
+      "required": ["userId", "goal"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles and main metadata."
+    },
+    "/users/{userId}/progress/{progressId}": {
+      "schema": "Progress",
+      "description": "Historical record of user activities."
+    },
+    "/users/{userId}/plan/current": {
+      "schema": "StudyPlan",
+      "description": "The active study plan for the user."
+    },
+    "/leads/{leadId}": {
+      "schema": "PreRegistrationLead",
+      "description": "Lista de pré-cadastros e leads coletados para visualização do administrador."
+    }
+  }
+}

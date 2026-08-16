@@ -1,0 +1,63 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() { return request.auth != null; }
+    function isOwner(userId) { return isSignedIn() && request.auth.uid == userId; }
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+
+    // User Profile Validation
+    function isValidUser(data) {
+      return data.uid == request.auth.uid &&
+             data.name is string && data.name.size() <= 100 &&
+             data.email is string && data.email.size() <= 150 &&
+             data.xp is int && data.level is int &&
+             (data.keys().hasAll(['uid', 'name', 'email', 'level', 'xp']) && data.keys().size() >= 5);
+    }
+
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow create: if isOwner(userId) && isValidUser(incoming());
+      allow update: if isOwner(userId) && isValidUser(incoming()) && (
+        incoming().diff(existing()).affectedKeys().hasOnly([
+          'name', 'xp', 'level', 'streak', 'lastActive', 'area', 'techStack', 
+          'streakShieldActive', 'lostStreak', 'onboarded',
+          'completedLessons', 'issuesResolved', 'correctAnswers', 'totalAnswers', 'reviewedWords'
+        ])
+      );
+
+      match /progress/{progressId} {
+        allow list: if isOwner(userId);
+        allow create: if isOwner(userId) && 
+                        incoming().lessonId is string && 
+                        incoming().xpEarned is int;
+      }
+
+      match /plan/current {
+        allow get: if isOwner(userId);
+        allow write: if isOwner(userId);
+      }
+    }
+
+    // Pré-Registro / Leads
+    function isValidLead(data) {
+      return data.name is string && data.name.size() > 0 && data.name.size() <= 120 &&
+             data.email is string && data.email.size() > 0 && data.email.size() <= 150 &&
+             data.phone is string && data.phone.size() > 0 && data.phone.size() <= 40 &&
+             data.area is string && data.area.size() <= 100;
+    }
+
+    match /leads/{leadId} {
+      allow create: if isValidLead(incoming());
+      allow read: if isSignedIn();
+      allow update, delete: if isSignedIn();
+    }
+  }
+}
