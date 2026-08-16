@@ -20,8 +20,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { PreRegistrationLead } from '../types';
-import { db } from '../lib/firebase';
-import { collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
+import { getLeadsList, removeLead } from '../services/leadService';
 
 interface AdminLeadsModalProps {
   isOpen: boolean;
@@ -42,29 +41,8 @@ export const AdminLeadsModal: React.FC<AdminLeadsModalProps> = ({
   const fetchLeads = async () => {
     setLoading(true);
     try {
-      // 1. Tenta carregar do backend local
-      const res = await fetch('/api/leads');
-      if (res.ok) {
-        const data = await res.json();
-        if (Array.isArray(data.leads) && data.leads.length > 0) {
-          setLeads(data.leads);
-          setLoading(false);
-          return;
-        }
-      }
-
-      // 2. Se vazio ou indisponível, busca do Firestore
-      try {
-        const q = query(collection(db, 'leads'), limit(100));
-        const snapshot = await getDocs(q);
-        const fbLeads: PreRegistrationLead[] = [];
-        snapshot.forEach((doc) => {
-          fbLeads.push({ id: doc.id, ...doc.data() } as PreRegistrationLead);
-        });
-        setLeads(fbLeads);
-      } catch (fbErr) {
-        console.warn("Could not query firestore leads:", fbErr);
-      }
+      const data = await getLeadsList();
+      setLeads(data);
     } catch (err) {
       console.error("Error fetching leads:", err);
     } finally {
@@ -84,7 +62,7 @@ export const AdminLeadsModal: React.FC<AdminLeadsModalProps> = ({
 
     setDeletingId(leadId);
     try {
-      await fetch(`/api/leads/${leadId}`, { method: 'DELETE' });
+      await removeLead(leadId);
       setLeads((prev) => prev.filter((l) => l.id !== leadId));
       if (selectedLead?.id === leadId) setSelectedLead(null);
     } catch (err) {

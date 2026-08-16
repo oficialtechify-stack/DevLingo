@@ -23,7 +23,22 @@ import {
   ShieldCheck,
   Flame,
   Users,
-  UserPlus
+  UserPlus,
+  ArrowRight,
+  Lock,
+  DollarSign,
+  TrendingUp,
+  Layers,
+  Globe,
+  Building2,
+  Server,
+  Check,
+  X,
+  Award,
+  Headphones,
+  Briefcase,
+  Scale,
+  Sparkle
 } from 'lucide-react';
 import { auth, db, signInWithGoogle } from './lib/firebase';
 import { onAuthStateChanged, User, signOut } from 'firebase/auth';
@@ -39,6 +54,10 @@ import { PreRegistrationModal } from './components/PreRegistrationModal';
 import { AdminLeadsModal } from './components/AdminLeadsModal';
 import { AdminPasswordModal } from './components/AdminPasswordModal';
 import { AnimatedReveal } from './components/AnimatedReveal';
+import { EnterpriseMarquee } from './components/EnterpriseMarquee';
+import { TechScenariosExplorer } from './components/TechScenariosExplorer';
+import { SalaryCalculator } from './components/SalaryCalculator';
+import { MethodologyMatrix } from './components/MethodologyMatrix';
 import { JobAnalysis, UserProfile, ChatMessage, PreRegistrationLead } from './types';
 
 // --- Utils ---
@@ -273,7 +292,7 @@ const LandingPage = () => {
       />
       
       {/* Hero Section */}
-      <section className="w-full max-w-full hero-gradient pt-32 sm:pt-36 pb-20 sm:pb-28 text-center text-white relative px-4 sm:px-6 overflow-hidden">
+      <section className="w-full max-w-full hero-gradient pt-32 sm:pt-36 pb-16 sm:pb-24 text-center text-white relative px-4 sm:px-6 overflow-hidden">
         {/* Animated Background Mesh */}
         <div className="absolute inset-0 pointer-events-none opacity-25 overflow-hidden">
           <div className="absolute top-10 left-1/4 w-72 sm:w-96 h-72 sm:h-96 bg-purple-500 rounded-full blur-[120px] sm:blur-[140px] animate-pulse" />
@@ -281,20 +300,20 @@ const LandingPage = () => {
         </div>
 
         <div className="container-wide relative z-10 space-y-6 sm:space-y-8 max-w-5xl mx-auto">
-          <AnimatedReveal direction="up" delay={0.1}>
+          <AnimatedReveal direction="up" delay={0.05}>
             <h1 className="text-3xl sm:text-5xl md:text-7xl font-extrabold max-w-5xl mx-auto leading-[1.15] tracking-tight text-white px-2">
-              Passe na entrevista em inglês das maiores <span className="bg-gradient-to-r from-pink-400 via-purple-300 to-indigo-300 bg-clip-text text-transparent">Big Techs do mundo.</span>
+              Passe na entrevista em inglês das maiores <span className="bg-gradient-to-r from-pink-400 via-purple-300 to-indigo-300 bg-clip-text text-transparent">empresas globais do mundo.</span>
             </h1>
           </AnimatedReveal>
           
-          <AnimatedReveal direction="up" delay={0.2}>
+          <AnimatedReveal direction="up" delay={0.15}>
             <p className="text-sm sm:text-base md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-normal px-2">
-              Cole o link ou texto da vaga do LinkedIn. Ao analisar os requisitos técnicos, faça seu pré-cadastro gratuito para calibrar as perguntas com base na sua stack de linguagens e cursos.
+              Para <strong className="text-white font-semibold">Devs, Designers, Filmmakers, Administradores, Product Managers</strong> e todos que buscam ganhar em dólares. Cole a vaga do LinkedIn e faça seu pré-cadastro gratuito.
             </p>
           </AnimatedReveal>
 
           {/* Interactive LinkedIn Job Input Component */}
-          <AnimatedReveal direction="up" delay={0.4} className="pt-2">
+          <AnimatedReveal direction="up" delay={0.25} className="pt-2">
             <LinkedInJobInput
               onStartSimulation={(job) => {
                 setGuestInterviewJob(job);
@@ -305,13 +324,16 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Problem Section */}
+      {/* Global Tech Companies Marquee */}
+      <EnterpriseMarquee />
+
+      {/* Problem & Fluency Diagnostic Section */}
       <section id="solucoes" className="w-full max-w-full section-padding bg-[#0a0914] border-t border-b border-white/5 relative overflow-hidden">
         <div className="container-wide text-center space-y-12 sm:space-y-16">
           <AnimatedReveal direction="up">
             <div className="space-y-4">
               <span className="bg-purple-500/20 text-purple-300 border border-purple-500/30 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest inline-flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse" /> O Problema Real
+                <span className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse" /> O Diagnóstico Técnico
               </span>
               <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-white">
                 Você domina a Stack,<br /> mas o seu inglês te trava na hora da entrevista?
@@ -438,6 +460,9 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* Tech Scenarios Interactive Explorer */}
+      <TechScenariosExplorer />
+
       {/* Why Section */}
       <section className="w-full max-w-full section-padding bg-[#07070c] relative overflow-hidden">
         <div className="container-wide text-center space-y-12 sm:space-y-16">
@@ -452,21 +477,21 @@ const LandingPage = () => {
             {[
               { 
                 icon: Code2, 
-                title: "IA Que Simula o Tech Recruiter", 
-                desc: "Esqueça cursinhos de inglês genéricos. A nossa IA assume a persona de um Engineering Manager de Big Tech. Gagueje, erre tempos verbais e treine à vontade num ambiente seguro.",
+                title: "Engineering Manager Virtual", 
+                desc: "Esqueça cursinhos de inglês genéricos. A nossa simulação assume a persona de um Engineering Manager de Big Tech. Gagueje, erre tempos verbais e treine à vontade num ambiente seguro.",
                 color: "bg-purple-500/20 text-purple-300 border-purple-500/30"
               },
               { 
                 icon: Github, 
                 title: "Entrevistas Vaga-Específicas", 
-                desc: "Cada entrevista é única. A IA lê a descrição da vaga que você colar do LinkedIn e gera perguntas focadas na sua stack real (React, AWS, Node, Go, Python, etc).",
+                desc: "Cada entrevista é única. O motor analisa os requisitos da vaga que você colar do LinkedIn e gera perguntas focadas na sua stack real (React, AWS, Node, Go, Python, etc).",
                 color: "bg-pink-500/20 text-pink-300 border-pink-500/30",
                 primary: true
               },
               { 
                 icon: Mic2, 
                 title: "Treine Sua Fala por Voz", 
-                desc: "Responda pelo microfone em inglês. A IA transcreve sua resposta, avalia a clareza técnica e devolve sugestões com vocabulário de desenvolvedor sênior nativo.",
+                desc: "Responda pelo microfone em inglês. O sistema processa sua resposta, avalia a clareza técnica e devolve sugestões com vocabulário de desenvolvedor sênior nativo.",
                 color: "bg-indigo-500/20 text-indigo-300 border-indigo-500/30"
               }
             ].map((card, i) => (
@@ -528,7 +553,7 @@ const LandingPage = () => {
               { 
                 step: "02", 
                 title: "Simule a Entrevista por Voz", 
-                desc: "A IA processa os requisitos técnicos e conduz uma entrevista ao vivo com perguntas de arquitetura e fit cultural.",
+                desc: "O sistema processa os requisitos técnicos e conduz uma entrevista ao vivo com perguntas de arquitetura e fit cultural.",
                 icon: Zap
               },
               { 
@@ -567,7 +592,7 @@ const LandingPage = () => {
           <AnimatedReveal direction="up">
             <div className="space-y-4">
                <span className="bg-purple-500/20 text-purple-300 border border-purple-500/30 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest inline-flex items-center gap-2">
-                <MessageSquare className="w-3.5 h-3.5" /> Preview da Experiência
+                <MessageSquare className="w-3.5 h-3.5" /> Terminal de Avaliação
               </span>
               <h2 className="text-3xl md:text-5xl font-extrabold text-white">Veja Como É a Simulação</h2>
               <p className="text-slate-400 max-w-2xl mx-auto text-base">Perguntas contextualizadas com sua stack e feedbacks com vocabulário técnico refinado.</p>
@@ -577,17 +602,17 @@ const LandingPage = () => {
           <AnimatedReveal direction="up" delay={0.2}>
             <div className="max-w-4xl mx-auto p-4 md:p-8 rounded-[2.5rem] glass-card border-purple-500/30 bg-gradient-to-b from-purple-950/30 to-slate-950/80 shadow-2xl relative">
               <div className="bg-slate-900/90 rounded-2xl overflow-hidden text-left border border-white/10 shadow-2xl">
-                <div className="bg-slate-950/90 p-4 border-b border-white/10 flex items-center justify-between">
-                  <div className="flex gap-2">
-                    <div className="w-3 h-3 rounded-full bg-rose-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
+                <div className="bg-slate-950/95 px-5 py-3.5 border-b border-white/10 flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-xs font-mono font-semibold text-slate-300 tracking-wide uppercase">
+                      DevLingo Assessment Console • <span className="text-purple-400">Stripe Mock Session</span>
+                    </span>
                   </div>
-                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
-                    <span>Technical Interview — Senior Fullstack (Stripe)</span>
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                  <div className="flex items-center gap-3 text-[11px] font-mono text-slate-400">
+                    <span className="px-2.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-300">Level: L5 Senior</span>
+                    <span className="hidden sm:inline-block px-2.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">Active Audio: 128kbps</span>
                   </div>
-                  <div className="w-12" />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3">
                   <div className="p-6 border-r border-white/10 bg-slate-950/50 space-y-4">
@@ -602,7 +627,7 @@ const LandingPage = () => {
                     {/* Audio Wave Visualizer Simulation */}
                     <div className="p-3 rounded-xl bg-purple-950/30 border border-purple-500/20 space-y-2">
                       <div className="flex items-center justify-between text-[11px] text-purple-300 font-semibold">
-                        <span>AI Voice Stream</span>
+                        <span>Voice Audio Stream</span>
                         <span className="text-[10px] text-emerald-400 font-mono">Live</span>
                       </div>
                       <div className="flex items-center gap-1 h-5 justify-between">
@@ -630,7 +655,7 @@ const LandingPage = () => {
                       
                       <div className="space-y-2">
                         <span className="text-[10px] font-bold text-pink-400 uppercase tracking-widest flex items-center gap-1.5">
-                          <span>English Pro-Tip da IA:</span>
+                          <span>Staff Engineer Feedback & Refinement:</span>
                           <span className="inline-block w-1.5 h-3 bg-pink-400 animate-pulse" />
                         </span>
                         <div className="p-3.5 bg-white/5 rounded-xl border border-white/10 text-xs text-slate-300 leading-relaxed font-mono">
@@ -646,29 +671,35 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* Salary & Financial Impact Calculator */}
+      <SalaryCalculator onOpenPreReg={() => setIsPreRegOpen(true)} />
+
+      {/* Methodology Comparison Matrix */}
+      <MethodologyMatrix />
+
       {/* FAQ Section */}
       <section id="faq" className="section-padding bg-[#0a0914] border-t border-white/5">
         <div className="container-wide max-w-3xl space-y-12">
           <AnimatedReveal direction="up">
             <div className="text-center space-y-4">
               <h2 className="text-3xl md:text-5xl font-extrabold text-white">Perguntas Frequentes</h2>
-              <p className="text-slate-400">Tire suas dúvidas sobre o simulador com IA.</p>
+              <p className="text-slate-400">Tire suas dúvidas sobre a plataforma DevLingo.</p>
             </div>
           </AnimatedReveal>
           
           <AnimatedReveal direction="up" delay={0.2}>
             <div className="glass-card p-6 md:p-8 rounded-3xl border-white/10">
               <FaqItem 
-                question="A IA entende de programação e arquitetura de verdade?" 
-                answer="Sim! Nossa IA é alimentada com modelos de última geração (Gemini 2.5 Flash), treinada com trilhões de tokens de código, System Design, trade-offs de escalabilidade e metodologia STAR de entrevistas internacionais."
+                question="A simulação entende de programação e arquitetura de verdade?" 
+                answer="Sim! O simulador é construído com modelos de última geração calibrados com padrões de System Design de Big Techs, trade-offs de escalabilidade, concorrência e a metodologia STAR para perguntas comportamentais."
               />
               <FaqItem 
                 question="Como funciona a simulação com a vaga do LinkedIn?" 
-                answer="Basta colar o link ou a descrição da vaga. A IA extrai automaticamente a empresa, requisitos de stack e senioridade, assumindo a persona do Tech Recruiter daquela empresa específica."
+                answer="Basta colar o link ou a descrição da vaga. O sistema extrai automaticamente a empresa, requisitos de stack e senioridade, conduzindo a entrevista focada exatamente no perfil exigido."
               />
               <FaqItem 
                 question="Preciso pagar para simular?" 
-                answer="Não! Você pode testar simulações completas gratuitamente por voz e texto diretamente na plataforma."
+                answer="Não! Você pode testar simulações completas gratuitamente por voz e texto diretamente na plataforma e garantir seu acesso antecipado no pré-registro."
               />
             </div>
           </AnimatedReveal>
@@ -677,31 +708,47 @@ const LandingPage = () => {
 
       {/* Footer */}
       <footer className="bg-[#07070c] border-t border-white/10 pt-16 pb-12">
-        <div className="container-wide grid grid-cols-1 md:grid-cols-3 gap-12">
-          <div className="space-y-4">
+        <div className="container-wide grid grid-cols-1 md:grid-cols-4 gap-10">
+          <div className="space-y-4 md:col-span-2">
             <div className="flex items-center gap-2.5">
               <span className="font-extrabold text-2xl text-white tracking-tight">DevLingo</span>
+              <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                Enterprise Edition
+              </span>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Plataforma para desenvolvedores destravarem o inglês técnico para vagas internacionais.
+            <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
+              Plataforma de alta performance para engenheiros de software destravarem a fluência técnica em inglês para processos seletivos globais.
             </p>
+            <div className="flex items-center gap-4 text-xs text-slate-500 font-mono">
+              <span className="flex items-center gap-1">
+                <Lock className="w-3.5 h-3.5 text-emerald-400" /> Dados 100% Confidenciais
+              </span>
+              <span>•</span>
+              <span className="flex items-center gap-1">
+                <ShieldCheck className="w-3.5 h-3.5 text-purple-400" /> Padrão Silicon Valley
+              </span>
+            </div>
           </div>
           <div className="space-y-3 text-xs">
-            <h4 className="font-bold text-white uppercase tracking-wider">Recursos</h4>
+            <h4 className="font-bold text-white uppercase tracking-wider font-mono">Navegação</h4>
             <div className="flex flex-col gap-2 text-slate-400">
               <button 
                 onClick={() => setIsPreRegOpen(true)}
                 className="text-left hover:text-pink-300 transition-colors cursor-pointer"
               >
-                Formulário de Pré-Registro
+                Garantir Pré-Registro
               </button>
-              <a href="#solucoes" className="hover:text-purple-300 transition-colors">Simulador com IA</a>
-              <a href="#preview" className="hover:text-purple-300 transition-colors">Analisador de Vagas LinkedIn</a>
+              <a href="#solucoes" className="hover:text-purple-300 transition-colors">Diagnóstico de Fluência</a>
+              <a href="#preview" className="hover:text-purple-300 transition-colors">Terminal de Avaliação</a>
+              <a href="#faq" className="hover:text-purple-300 transition-colors">Dúvidas Frequentes</a>
             </div>
           </div>
           <div className="space-y-3 text-xs text-slate-400">
-             <h4 className="font-bold text-white uppercase tracking-wider">DevLingo</h4>
-             <p>© 2026 DevLingo. Fluência técnica para desenvolvedores.</p>
+             <h4 className="font-bold text-white uppercase tracking-wider font-mono">Privacidade</h4>
+             <p>© 2026 DevLingo. Todos os direitos reservados.</p>
+             <p className="text-[11px] text-slate-500">
+               Nenhum dado de vaga ou perfil é compartilhado com recrutadores sem sua permissão expressa.
+             </p>
           </div>
         </div>
       </footer>

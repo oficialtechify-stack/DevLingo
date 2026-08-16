@@ -17,8 +17,7 @@ import {
   Star
 } from 'lucide-react';
 import { JobAnalysis, PreRegistrationLead } from '../types';
-import { db } from '../lib/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { saveLead } from '../services/leadService';
 
 interface PreRegistrationModalProps {
   isOpen: boolean;
@@ -28,49 +27,51 @@ interface PreRegistrationModalProps {
 }
 
 const COMMON_TECHS = [
-  "Frontend",
-  "Java",
-  "CSS / HTML",
-  "JavaScript",
-  "TypeScript",
-  "React",
+  "Figma",
+  "Adobe Premiere",
+  "After Effects",
+  "DaVinci Resolve",
+  "Excel Avançado / FP&A",
+  "Notion / Jira",
+  "Design Systems",
+  "UI / UX Research",
+  "Storyboarding & Roteiro",
+  "Color Grading",
+  "Gestão Ágil / Scrum",
+  "Google Analytics / SEO",
+  "React / Next.js",
   "Node.js",
   "Python",
-  "Go (Golang)",
-  "C# / .NET",
-  "PHP",
-  "Kotlin",
-  "Swift",
+  "JavaScript / TypeScript",
   "SQL / PostgreSQL",
-  "Docker",
   "AWS / Cloud",
-  "Next.js",
-  "Vue.js",
-  "Angular",
-  "C++"
+  "Docker",
+  "Java / Spring",
+  "HubSpot / CRM"
 ];
 
 const AREAS = [
-  "Frontend",
-  "Backend",
-  "Full-Stack",
-  "DevOps / Cloud",
-  "Mobile (iOS / Android)",
-  "Data & Inteligência Artificial",
-  "QA / Testes & Automação",
-  "Engenharia de Segurança",
-  "Estudante / Transição de Carreira"
+  "Engenharia de Software (Fullstack / Backend / Frontend)",
+  "Design, UI/UX & Product Design",
+  "Filmmaker, Vídeo & Motion Design",
+  "Administração, Finanças & Operações",
+  "Product Management & Projetos",
+  "Marketing Digital, Growth & Conteúdo",
+  "Vendas, BDR & Customer Success",
+  "Dados, BI & Inteligência Artificial",
+  "DevOps, SRE & Cloud",
+  "Outra Carreira / Transição"
 ];
 
 const COURSES_OPTIONS = [
-  "Faculdade de TI (ADS, Ciência da Comp, SI, etc)",
-  "Rocketseat",
-  "Alura",
-  "Curso em Vídeo (Gustavo Guanabara)",
+  "Faculdade / Graduação (TI, Design, ADM, Cinema, etc)",
+  "Rocketseat / Alura",
+  "EBAC / Cursos de Design & Audiovisual",
   "Udemy / Coursera",
+  "Curso em Vídeo (Gustavo Guanabara)",
   "Bootcamp Intensivo",
-  "100% Autodidata / Documentação",
-  "Outro Curso / Mentoria"
+  "100% Autodidata / Portfólio Próprio",
+  "Outro Curso / Mentoria Especializada"
 ];
 
 export const PreRegistrationModal: React.FC<PreRegistrationModalProps> = ({
@@ -160,35 +161,20 @@ export const PreRegistrationModal: React.FC<PreRegistrationModalProps> = ({
     };
 
     try {
-      // 1. Salva no backend local/API
-      const res = await fetch('/api/leads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(leadData)
-      });
+      const result = await saveLead(leadData);
+      const finalizedLead = {
+        ...leadData,
+        id: result.id
+      };
 
-      if (!res.ok) {
-        throw new Error("Falha ao registrar dados na API");
-      }
-
-      // 2. Salva também no Firestore para persistência em nuvem
-      try {
-        await addDoc(collection(db, 'leads'), {
-          ...leadData,
-          firestoreCreatedAt: serverTimestamp()
-        });
-      } catch (firestoreErr) {
-        console.warn("Firestore sync warning (API fallback active):", firestoreErr);
-      }
-
-      setSavedLead(leadData);
+      setSavedLead(finalizedLead);
       setIsSuccess(true);
       if (onSuccess) {
-        onSuccess(leadData);
+        onSuccess(finalizedLead);
       }
     } catch (err: any) {
       console.error("Error submitting lead:", err);
-      setError("Ocorreu um erro ao salvar o pré-registro. Tente novamente.");
+      setError(err?.message || "Ocorreu um erro ao salvar o pré-registro no banco de dados. Tente novamente.");
     } finally {
       setIsSubmitting(false);
     }
@@ -418,12 +404,12 @@ export const PreRegistrationModal: React.FC<PreRegistrationModalProps> = ({
                   </div>
                 </div>
 
-                {/* 3. Linguagens e Tecnologias que Sabe */}
+                {/* 3. Ferramentas, Softwares e Habilidades */}
                 <div className="space-y-3 pt-3 border-t border-white/10">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-sm font-semibold text-white/90">
                       <Code2 className="w-4 h-4 text-amber-400" />
-                      <span>3. Quais linguagens & tecnologias você sabe ou estuda? <span className="text-pink-400">*</span></span>
+                      <span>3. Quais ferramentas, softwares ou habilidades você domina? <span className="text-pink-400">*</span></span>
                     </div>
                     <span className="text-xs text-purple-300 font-medium">
                       {selectedTechs.length} selecionada(s)
@@ -459,7 +445,7 @@ export const PreRegistrationModal: React.FC<PreRegistrationModalProps> = ({
                       value={customTech}
                       onChange={(e) => setCustomTech(e.target.value)}
                       onKeyDown={handleAddCustomTech}
-                      placeholder="Adicionar outra linguagem ou ferramenta..."
+                      placeholder="Adicionar outra ferramenta, software ou habilidade..."
                       className="flex-1 px-3.5 py-2 rounded-xl bg-white/5 border border-white/15 text-white placeholder-white/40 text-xs focus:border-purple-400 outline-none"
                     />
                     <button

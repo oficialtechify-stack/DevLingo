@@ -29,7 +29,19 @@ function parseFallbackJob(jobInput: string) {
   let level = "Senior";
   let techStack = ["TypeScript", "React", "Node.js", "Cloud Architecture", "System Design"];
 
-  if (lower.includes("frontend") || lower.includes("front-end") || lower.includes("react") || lower.includes("vue") || lower.includes("next")) {
+  if (lower.includes("design") || lower.includes("ux") || lower.includes("ui") || lower.includes("product designer") || lower.includes("figma")) {
+    roleTitle = "Senior Product Designer (UI/UX)";
+    techStack = ["Figma", "Design Systems", "User Research", "Design Tokens", "WCAG Accessibility", "Prototyping"];
+  } else if (lower.includes("film") || lower.includes("filmmaker") || lower.includes("video") || lower.includes("audiovisual") || lower.includes("motion") || lower.includes("cinema") || lower.includes("editor")) {
+    roleTitle = "Lead Video Producer & Filmmaker";
+    techStack = ["DaVinci Resolve", "Adobe Premiere Pro", "After Effects", "ACES Color Grading", "Storyboarding", "Sound Design"];
+  } else if (lower.includes("admin") || lower.includes("administra") || lower.includes("operac") || lower.includes("business") || lower.includes("finance") || lower.includes("fp&a") || lower.includes("operations")) {
+    roleTitle = "Global Business Operations & Administration Manager";
+    techStack = ["Financial Modeling (FP&A)", "Process Optimization", "OKRs & KPIs", "Notion / Jira Governance", "Cross-Border Stakeholders", "Excel / BI"];
+  } else if (lower.includes("marketing") || lower.includes("growth") || lower.includes("seo") || lower.includes("copy")) {
+    roleTitle = "Senior Growth & Product Marketing Manager";
+    techStack = ["GTM Strategy", "Cohort Analytics", "SEO & Performance", "Lifecycle Marketing", "Conversion Rate Optimization (CRO)", "Copywriting"];
+  } else if (lower.includes("frontend") || lower.includes("front-end") || lower.includes("react") || lower.includes("vue") || lower.includes("next")) {
     roleTitle = "Senior Frontend / Fullstack Engineer";
     techStack = ["React 19", "TypeScript", "Next.js", "Tailwind CSS", "Web Vitals & Performance", "GraphQL"];
   } else if (lower.includes("backend") || lower.includes("back-end") || lower.includes("node") || lower.includes("python") || lower.includes("golang") || lower.includes("java")) {
@@ -59,6 +71,11 @@ function parseFallbackJob(jobInput: string) {
   else if (lower.includes("vercel")) company = "Vercel";
   else if (lower.includes("airbnb")) company = "Airbnb";
   else if (lower.includes("atlassian")) company = "Atlassian";
+  else if (lower.includes("canva")) company = "Canva";
+  else if (lower.includes("figma")) company = "Figma";
+  else if (lower.includes("mckinsey")) company = "McKinsey";
+  else if (lower.includes("deel")) company = "Deel";
+  else if (lower.includes("adobe")) company = "Adobe";
 
   return {
     company,
@@ -287,7 +304,7 @@ async function startServer() {
         contents: prompt,
         config: {
           responseMimeType: "application/json",
-          systemInstruction: "Você é um especialista internacional em contratação e recrutamento de engenharia de software para Big Techs e startups globais com acesso a pesquisa e padrões do setor.",
+          systemInstruction: "Você é um especialista internacional em contratação e recrutamento de talentos globais para Big Techs, estúdios criativos, consultorias e startups internacionais (cobrindo Engenharia de Software, Product Design, Audiovisual/Filmmaking, Administração & Finanças, Marketing e Produto). Forneça análises de alto impacto e perguntas em inglês nativo calibradas para o cargo do candidato.",
         },
       });
 

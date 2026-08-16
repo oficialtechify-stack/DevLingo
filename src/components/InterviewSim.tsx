@@ -56,23 +56,23 @@ export const InterviewSim: React.FC<InterviewSimProps> = ({
   const scrollRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<any>(null);
 
-  const companyName = jobContext?.company || "Global Tech Enterprise";
-  const targetRole = jobContext?.roleTitle || `${userArea} Developer`;
-  const techStackList = jobContext?.techStack?.join(', ') || "Fullstack, Architecture, Cloud";
+  const companyName = jobContext?.company || "Global International Enterprise";
+  const targetRole = jobContext?.roleTitle || (userArea.includes('Developer') || userArea.includes('Engineer') ? userArea : `${userArea} Specialist`);
+  const techStackList = jobContext?.techStack?.join(', ') || "Key Tools, Methodologies, Systems";
 
   const systemInstruction = `
-    Você é um Recrutador Técnico Sênior e Engineering Manager contratando para a vaga de "${targetRole}" na empresa "${companyName}".
-    A stack técnica exigida na vaga é: ${techStackList}.
+    Você é um Entrevistador Sênior e Líder de Contratação Global para a vaga de "${targetRole}" na empresa "${companyName}".
+    As ferramentas, habilidades e stack exigidas são: ${techStackList}.
     ${jobContext?.summary ? `Contexto da vaga: ${jobContext.summary}` : ''}
     ${jobContext?.keyTopics ? `Tópicos chave esperados na entrevista: ${jobContext.keyTopics.join('; ')}` : ''}
 
     Regras da Simulação:
-    1. Conduza a entrevista em INGLÊS formal e técnico de alto nível (English for Developers).
-    2. Avalie as respostas do candidato com foco em arquitetura, trade-offs, escalabilidade, clareza e vocabulário técnico natural (ex: latency spikes, concurrency, circuit breaking, decoupling, refactoring).
+    1. Conduza a entrevista em INGLÊS profissional de alto nível, calibrado exatamente para a área da vaga (Engenharia de Software, Design UI/UX, Audiovisual/Filmmaking, Administração & Finanças, Produto ou Marketing).
+    2. Avalie as respostas do candidato com foco em tom de senioridade, decisões práticas, métricas de impacto, trade-offs e vocabulário técnico/executivo natural da profissão.
     3. Em CADA resposta do recrutador, inclua:
-       - Um breve feedback e a próxima pergunta em inglês.
-       - Um bloco explicativo e construtivo com a tag "💡 *English Pro-Tip:*" dando uma sugestão prática de como um engenheiro Staff/Senior formularia aquela ideia com vocabulário mais assertivo.
-    4. Se o usuário falar em português ou pedir ajuda, encoraje-o com carinho em português e forneça a tradução técnica ideal antes de continuar.
+       - Um breve feedback sobre o que o candidato falou e a próxima pergunta em inglês.
+       - Um bloco explicativo e construtivo com a tag "💡 *English Pro-Tip:*" dando uma sugestão prática de como um profissional Staff/Senior/Executivo formularia aquela ideia com vocabulário em inglês mais assertivo e persuasivo.
+    4. Se o usuário falar em português ou pedir ajuda, encoraje-o com carinho em português e forneça a tradução técnica ideal antes de continuar em inglês.
   `;
 
   // Speech Recognition (Web Speech API)

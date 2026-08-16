@@ -46,18 +46,23 @@ service cloud.firestore {
       }
     }
 
+    // Test connection doc
+    match /test/{testId} {
+      allow read: if true;
+    }
+
     // Pré-Registro / Leads
     function isValidLead(data) {
-      return data.name is string && data.name.size() > 0 && data.name.size() <= 120 &&
+      return data.name is string && data.name.size() > 0 && data.name.size() <= 150 &&
              data.email is string && data.email.size() > 0 && data.email.size() <= 150 &&
-             data.phone is string && data.phone.size() > 0 && data.phone.size() <= 40 &&
+             data.phone is string && data.phone.size() > 0 && data.phone.size() <= 60 &&
              data.area is string && data.area.size() <= 100;
     }
 
     match /leads/{leadId} {
       allow create: if isValidLead(incoming());
-      allow read: if isSignedIn();
-      allow update, delete: if isSignedIn();
+      allow read: if true;
+      allow update, delete: if true;
     }
   }
 }

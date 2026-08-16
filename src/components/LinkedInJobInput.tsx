@@ -27,28 +27,34 @@ function cn(...inputs: ClassValue[]) {
 
 const SAMPLE_JOBS = [
   {
-    title: "Senior Fullstack (React/Go)",
+    title: "Senior Product Designer (UI/UX - Figma)",
+    company: "Airbnb",
+    input: "https://www.linkedin.com/jobs/view/airbnb-senior-product-designer-design-systems-41289102",
+    tag: "Design / UI/UX"
+  },
+  {
+    title: "Lead Video Producer & Filmmaker",
+    company: "Netflix",
+    input: "Vaga de Lead Video Creator & Filmmaker na Netflix para criação de trailers, direção de fotografia, edição de alta retenção no Premiere/DaVinci e pós-produção audiovisual.",
+    tag: "Audiovisual / Vídeo"
+  },
+  {
+    title: "Global Operations & Business Admin",
+    company: "McKinsey",
+    input: "Vaga de Business Operations & Administration Manager na McKinsey para otimização de processos, FP&A, governança corporativa e gestão de stakeholders internacionais.",
+    tag: "Administração & Ops"
+  },
+  {
+    title: "Senior Fullstack Engineer (React/Go)",
     company: "Stripe",
     input: "https://www.linkedin.com/jobs/view/stripe-senior-fullstack-engineer-4109283741",
-    tag: "Link do LinkedIn"
+    tag: "Engenharia / Dev"
   },
   {
-    title: "Staff Backend Engineer (Kafka/Distributed)",
-    company: "Uber",
-    input: "Vaga de Staff Backend Engineer na Uber para arquitetura de mensageria com Kafka, microservices em Go, caching distribuído com Redis e alta disponibilidade.",
-    tag: "Texto Livre / Descrição"
-  },
-  {
-    title: "Senior Frontend Architect (React 19/Next.js)",
-    company: "Vercel",
-    input: "https://www.linkedin.com/jobs/view/vercel-senior-frontend-architect-nextjs-39872145",
-    tag: "Link do LinkedIn"
-  },
-  {
-    title: "Cloud & Distributed Systems",
-    company: "Nubank",
-    input: "Engenheiro de Software Sênior no Nubank trabalhando com microsserviços em Clojure/Java, Kafka, AWS, arquitetura orientada a eventos e resiliência financeira.",
-    tag: "Texto Livre / Descrição"
+    title: "Growth & Product Marketing Manager",
+    company: "Deel",
+    input: "Product Marketing Manager na Deel responsável por estratégias de GTM global, retenção de usuários B2B, copywriting e análise de conversão.",
+    tag: "Marketing & Growth"
   }
 ];
 
@@ -73,16 +79,16 @@ export const LinkedInJobInput: React.FC<LinkedInJobInputProps> = ({
 
   const analysisSteps = isLink
     ? [
-        "Acessando o link da vaga e buscando dados na web...",
-        "Escaneando requisitos técnicos, senioridade e empresa...",
-        "Mapeando perguntas reais de System Design e Behavioral Fit...",
-        "Configurando o Tech Recruiter IA para a entrevista..."
+        "Acessando os requisitos da vaga e stack técnica...",
+        "Escaneando nível de senioridade, arquitetura e empresa...",
+        "Mapeando cenários de System Design e metodologia STAR...",
+        "Calibrando o console de avaliação para a entrevista..."
       ]
     : [
-        "Analisando sua descrição técnica e pesquisando padrões de mercado...",
-        "Identificando empresa, stack de ferramentas e arquitetura...",
-        "Mapeando cenários de alta pressão e metodologia STAR...",
-        "Preparando o Tech Recruiter IA para conduzir a entrevista..."
+        "Analisando descrição técnica e padrões de mercado...",
+        "Identificando arquitetura, linguagens e ferramentas exigidas...",
+        "Mapeando cenários de alta concorrência e método STAR...",
+        "Preparando o console de avaliação técnica..."
       ];
 
   const handleAnalyze = async (customInput?: string) => {
@@ -149,7 +155,7 @@ export const LinkedInJobInput: React.FC<LinkedInJobInputProps> = ({
               value={jobUrl}
               onChange={(e) => setJobUrl(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleAnalyze()}
-              placeholder="Cole a URL do LinkedIn OU escreva a vaga (ex: Senior React Dev na Stripe)..."
+              placeholder="Cole a URL do LinkedIn OU cargo (ex: Product Designer na Airbnb, Filmmaker na Netflix, Dev na Stripe)..."
               className="w-full bg-transparent text-white placeholder-white/50 text-sm md:text-base outline-none font-medium selection:bg-purple-500 selection:text-white"
             />
             {jobUrl && (
@@ -246,7 +252,7 @@ export const LinkedInJobInput: React.FC<LinkedInJobInputProps> = ({
                 <Cpu className="w-6 h-6" />
               </div>
               <h4 className="text-base font-bold text-white">
-                Inteligência Artificial Analisando o LinkedIn
+                Mapeamento de Requisitos da Vaga
               </h4>
               <p className="text-xs md:text-sm text-purple-200 animate-pulse font-medium">
                 {analysisSteps[analysisStep]}
