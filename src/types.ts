@@ -42,6 +42,7 @@ export interface PreRegistrationLead {
   name: string;
   email: string;
   phone: string;
+  instagram?: string;
   area: string;
   knownTechs: string[];
   customTechs?: string;

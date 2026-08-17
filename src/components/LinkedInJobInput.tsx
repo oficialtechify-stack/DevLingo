@@ -132,22 +132,22 @@ export const LinkedInJobInput: React.FC<LinkedInJobInputProps> = ({
   };
 
   return (
-    <div className={cn("w-full max-w-3xl mx-auto space-y-6", className)}>
+    <div className={cn("w-full max-w-3xl mx-auto space-y-5", className)}>
       {/* Search / Input Bar Container */}
       <motion.div 
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.4 }}
         className="relative group"
       >
-        <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-500 rounded-[2.5rem] blur-xl opacity-40 group-hover:opacity-75 transition duration-700 animate-pulse-ring" />
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600/30 via-pink-600/20 to-indigo-600/30 rounded-2xl blur-lg opacity-60 group-hover:opacity-100 transition duration-500" />
 
-        <div className="relative rounded-[2.2rem] p-2 md:p-3 bg-white/10 backdrop-blur-2xl border border-white/20 shadow-2xl flex flex-col md:flex-row items-center gap-2 md:gap-3">
-          <div className="flex-1 flex items-center gap-3 w-full px-4 py-2">
+        <div className="relative rounded-2xl p-2 bg-[#0c0c14] border border-zinc-700/80 shadow-2xl flex flex-col md:flex-row items-center gap-2 md:gap-3">
+          <div className="flex-1 flex items-center gap-3 w-full px-3 py-1.5">
             {isLink ? (
-              <Link2 className="w-5 h-5 text-pink-400 flex-shrink-0 animate-pulse" />
+              <Link2 className="w-5 h-5 text-purple-400 flex-shrink-0" />
             ) : (
-              <FileText className="w-5 h-5 text-purple-300 flex-shrink-0 animate-pulse" />
+              <FileText className="w-5 h-5 text-zinc-400 flex-shrink-0" />
             )}
             
             <input
@@ -155,13 +155,13 @@ export const LinkedInJobInput: React.FC<LinkedInJobInputProps> = ({
               value={jobUrl}
               onChange={(e) => setJobUrl(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleAnalyze()}
-              placeholder="Cole a URL do LinkedIn OU cargo (ex: Product Designer na Airbnb, Filmmaker na Netflix, Dev na Stripe)..."
-              className="w-full bg-transparent text-white placeholder-white/50 text-sm md:text-base outline-none font-medium selection:bg-purple-500 selection:text-white"
+              placeholder="Cole o link do LinkedIn ou digite a vaga (ex: Senior Designer na Airbnb, Dev na Stripe)..."
+              className="w-full bg-transparent text-white placeholder-zinc-500 text-sm md:text-[15px] outline-none font-medium selection:bg-purple-500 selection:text-white"
             />
             {jobUrl && (
               <button 
                 onClick={() => setJobUrl('')}
-                className="text-white/40 hover:text-white text-xs px-2 py-1 rounded cursor-pointer"
+                className="text-zinc-500 hover:text-white text-xs px-2 py-1 rounded cursor-pointer font-mono"
               >
                 Limpar
               </button>
@@ -169,22 +169,22 @@ export const LinkedInJobInput: React.FC<LinkedInJobInputProps> = ({
           </div>
 
           <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
             onClick={() => handleAnalyze()}
             disabled={isAnalyzing}
-            className="w-full md:w-auto px-7 py-3.5 bg-white text-[#7c3aed] font-extrabold text-sm md:text-base rounded-full hover:bg-slate-100 transition-all shadow-[0_10px_25px_rgba(255,255,255,0.25)] flex items-center justify-center gap-2 flex-shrink-0 whitespace-nowrap cursor-pointer"
+            className="w-full md:w-auto px-6 py-3 bg-white text-black font-bold text-sm rounded-xl hover:bg-zinc-200 transition-all shadow-md flex items-center justify-center gap-2 flex-shrink-0 whitespace-nowrap cursor-pointer disabled:opacity-50"
           >
             {isAnalyzing ? (
               <>
-                <Loader2 className="w-4 h-4 animate-spin text-[#7c3aed]" />
-                <span>{isLink ? "Buscando Link..." : "Analisando Vaga..."}</span>
+                <Loader2 className="w-4 h-4 animate-spin text-black" />
+                <span>{isLink ? "Buscando Vaga..." : "Mapeando Requisitos..."}</span>
               </>
             ) : (
               <>
-                <span>Analisar Vaga & Pré-Registro</span>
-                <ChevronRight className="w-4 h-4 text-[#7c3aed]" />
+                <span>Analisar Vaga & Inscrição</span>
+                <ChevronRight className="w-4 h-4 text-black" />
               </>
             )}
           </motion.button>
@@ -192,35 +192,37 @@ export const LinkedInJobInput: React.FC<LinkedInJobInputProps> = ({
       </motion.div>
 
       {/* Subtitle / Mode Indicator */}
-      <div className="flex flex-wrap items-center justify-center gap-3 text-xs md:text-sm text-white/70 font-medium tracking-wide">
-        <span className="flex items-center gap-1.5 text-pink-300">
-          <Link2 className="w-3.5 h-3.5" /> Aceita Links do LinkedIn
+      <div className="flex flex-wrap items-center justify-center gap-2.5 text-xs text-zinc-400 font-medium tracking-wide">
+        <span className="flex items-center gap-1.5 text-zinc-300">
+          <Link2 className="w-3.5 h-3.5 text-purple-400" /> Links Diretos do LinkedIn
         </span>
-        <span>•</span>
-        <span className="flex items-center gap-1.5 text-purple-300">
-          <FileText className="w-3.5 h-3.5 text-purple-400" /> Aceita Descrição Escrita Livre
+        <span className="text-zinc-600">•</span>
+        <span className="flex items-center gap-1.5 text-zinc-300">
+          <FileText className="w-3.5 h-3.5 text-pink-400" /> Descrição Livre de Vaga
         </span>
-        <span>•</span>
-        <span>Sem Cartão. É só falar.</span>
+        <span className="text-zinc-600">•</span>
+        <span className="text-emerald-400 font-medium flex items-center gap-1">
+          <CheckCircle2 className="w-3.5 h-3.5" /> 100% Gratuito
+        </span>
       </div>
 
       {/* Quick Sample Links and Texts */}
-      <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
-        <span className="text-xs text-white/50">
-          Ou teste com estes exemplos:
+      <div className="flex flex-wrap items-center justify-center gap-1.5 pt-1">
+        <span className="text-xs text-zinc-400 mr-1">
+          Exemplos rápidos:
         </span>
         {SAMPLE_JOBS.map((sample, idx) => (
           <motion.button
             key={idx}
-            whileHover={{ y: -2, scale: 1.04 }}
-            whileTap={{ scale: 0.96 }}
+            whileHover={{ y: -1, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
             onClick={() => handleApplySample(sample.input)}
-            className="text-xs px-3.5 py-1.5 rounded-full bg-white/[0.06] hover:bg-white/[0.14] border border-white/10 hover:border-purple-500/40 text-white/80 hover:text-white transition-colors flex items-center gap-1.5 shadow-sm cursor-pointer"
+            className="text-xs px-3 py-1 rounded-lg bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-zinc-300 hover:text-white transition-all flex items-center gap-1.5 shadow-sm cursor-pointer"
           >
-            <span className="font-semibold text-pink-300">{sample.company}</span>
-            <span className="text-white/40">•</span>
-            <span>{sample.title}</span>
+            <span className="font-semibold text-white">{sample.company}</span>
+            <span className="text-zinc-600">•</span>
+            <span className="text-zinc-400">{sample.title}</span>
           </motion.button>
         ))}
       </div>
@@ -230,7 +232,7 @@ export const LinkedInJobInput: React.FC<LinkedInJobInputProps> = ({
         <motion.div 
           initial={{ opacity: 0, y: -5 }}
           animate={{ opacity: 1, y: 0 }}
-          className="p-3 bg-rose-950/50 border border-rose-500/40 rounded-xl text-center text-xs text-rose-200"
+          className="p-3 bg-red-950/50 border border-red-800/60 rounded-xl text-center text-xs text-red-300"
         >
           {errorMessage}
         </motion.div>
@@ -240,32 +242,30 @@ export const LinkedInJobInput: React.FC<LinkedInJobInputProps> = ({
       <AnimatePresence>
         {isAnalyzing && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            className="glass-card p-6 rounded-3xl border border-purple-500/30 text-center space-y-4 shadow-2xl bg-slate-900/90 relative overflow-hidden"
+            exit={{ opacity: 0, scale: 0.96 }}
+            className="p-6 rounded-2xl border border-zinc-800 text-center space-y-4 shadow-2xl bg-zinc-950 relative overflow-hidden"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-600/10 via-pink-600/10 to-indigo-600/10 animate-gradient" />
-            
             <div className="relative z-10 space-y-3">
-              <div className="w-12 h-12 rounded-full bg-purple-500/20 text-purple-300 flex items-center justify-center mx-auto animate-spin">
-                <Cpu className="w-6 h-6" />
+              <div className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 text-purple-400 flex items-center justify-center mx-auto">
+                <Loader2 className="w-5 h-5 animate-spin" />
               </div>
-              <h4 className="text-base font-bold text-white">
-                Mapeamento de Requisitos da Vaga
+              <h4 className="text-sm font-bold text-white uppercase tracking-wider font-mono">
+                Mapeando Requisitos da Vaga
               </h4>
-              <p className="text-xs md:text-sm text-purple-200 animate-pulse font-medium">
+              <p className="text-xs sm:text-sm text-zinc-300 font-medium">
                 {analysisSteps[analysisStep]}
               </p>
 
               {/* Progress dots */}
-              <div className="flex justify-center gap-2 pt-2">
+              <div className="flex justify-center gap-1.5 pt-1">
                 {analysisSteps.map((_, i) => (
                   <div 
                     key={i}
                     className={cn(
-                      "w-2.5 h-2.5 rounded-full transition-all duration-300",
-                      i <= analysisStep ? "bg-pink-400 scale-110" : "bg-white/10"
+                      "w-2 h-2 rounded-full transition-all duration-300",
+                      i <= analysisStep ? "bg-white scale-110" : "bg-zinc-800"
                     )}
                   />
                 ))}
@@ -279,57 +279,57 @@ export const LinkedInJobInput: React.FC<LinkedInJobInputProps> = ({
       <AnimatePresence>
         {analyzedJob && !isAnalyzing && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.98 }}
+            initial={{ opacity: 0, y: 16, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20 }}
-            className="glass-card rounded-3xl p-6 md:p-8 border border-purple-500/40 shadow-2xl bg-slate-900/95 space-y-6 relative overflow-hidden"
+            exit={{ opacity: 0, y: 16 }}
+            className="rounded-2xl p-6 md:p-7 border border-zinc-800 shadow-2xl bg-zinc-950 space-y-5 relative overflow-hidden text-left"
           >
             {/* Header Badge */}
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-850 pb-4">
               <div className="flex items-center gap-3">
-                <div className="p-3 rounded-2xl bg-gradient-to-tr from-purple-600 to-pink-600 text-white shadow-lg">
-                  <Building2 className="w-6 h-6" />
+                <div className="p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-white shadow-sm">
+                  <Building2 className="w-5 h-5 text-zinc-300" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold uppercase tracking-wider text-pink-400">
+                    <span className="text-xs font-bold uppercase tracking-wider text-purple-400 font-mono">
                       {analyzedJob.company}
                     </span>
-                    <span className="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded-full font-bold">
+                    <span className="text-[10px] bg-zinc-900 border border-zinc-800 text-zinc-300 px-2 py-0.5 rounded font-mono">
                       {analyzedJob.level}
                     </span>
                   </div>
-                  <h3 className="text-xl md:text-2xl font-extrabold text-white">
+                  <h3 className="text-lg md:text-xl font-bold text-white">
                     {analyzedJob.roleTitle}
                   </h3>
                 </div>
               </div>
 
-              <span className="text-xs font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-3 py-1 rounded-full flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4" /> Vaga Mapeada com Sucesso
+              <span className="text-xs font-medium text-emerald-400 bg-emerald-950/40 border border-emerald-800/60 px-3 py-1 rounded-full flex items-center gap-1.5 font-mono">
+                <CheckCircle2 className="w-3.5 h-3.5" /> Requisitos Mapeados
               </span>
             </div>
 
             {/* Summary & Tech Stack */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/5 space-y-2">
-                <span className="text-xs font-bold text-white/50 uppercase tracking-wider flex items-center gap-1.5">
-                  <FileText className="w-4 h-4 text-purple-400" /> Resumo do Escopo
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              <div className="p-4 rounded-xl bg-zinc-900/60 border border-zinc-850 space-y-2">
+                <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5 font-mono">
+                  <FileText className="w-3.5 h-3.5 text-zinc-400" /> Resumo do Cargo
                 </span>
-                <p className="text-xs md:text-sm text-white/80 leading-relaxed">
+                <p className="text-xs text-zinc-300 leading-relaxed">
                   {analyzedJob.summary}
                 </p>
               </div>
 
-              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/5 space-y-2">
-                <span className="text-xs font-bold text-white/50 uppercase tracking-wider flex items-center gap-1.5">
-                  <Cpu className="w-4 h-4 text-pink-400" /> Tech Stack Exigida
+              <div className="p-4 rounded-xl bg-zinc-900/60 border border-zinc-850 space-y-2">
+                <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5 font-mono">
+                  <Cpu className="w-3.5 h-3.5 text-zinc-400" /> Ferramentas & Habilidades
                 </span>
                 <div className="flex flex-wrap gap-1.5">
                   {analyzedJob.techStack.map((tech, idx) => (
                     <span
                       key={idx}
-                      className="text-xs px-2.5 py-1 rounded-lg bg-purple-500/15 border border-purple-500/30 text-purple-200 font-medium"
+                      className="text-xs px-2.5 py-1 rounded-md bg-zinc-900 border border-zinc-800 text-zinc-200 font-mono text-[11px]"
                     >
                       {tech}
                     </span>
@@ -340,13 +340,13 @@ export const LinkedInJobInput: React.FC<LinkedInJobInputProps> = ({
 
             {/* Key Topics to expect */}
             <div className="space-y-2">
-              <span className="text-xs font-bold text-white/50 uppercase tracking-wider flex items-center gap-1.5">
-                <Layers className="w-4 h-4 text-amber-400" /> Perguntas Técnicas Esperadas na Entrevista
+              <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5 font-mono">
+                <Layers className="w-3.5 h-3.5 text-zinc-400" /> Tópicos Avaliados na Entrevista
               </span>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                 {analyzedJob.keyTopics.map((topic, i) => (
-                  <div key={i} className="p-3 rounded-xl bg-black/40 border border-white/5 text-xs text-white/80 flex items-start gap-2">
-                    <span className="text-purple-400 font-bold">{i + 1}.</span>
+                  <div key={i} className="p-3 rounded-lg bg-zinc-900/40 border border-zinc-850 text-xs text-zinc-300 flex items-start gap-2">
+                    <span className="text-zinc-500 font-mono font-bold">{i + 1}.</span>
                     <span>{topic}</span>
                   </div>
                 ))}
@@ -354,25 +354,25 @@ export const LinkedInJobInput: React.FC<LinkedInJobInputProps> = ({
             </div>
 
             {/* STAR Tip */}
-            <div className="p-4 rounded-2xl bg-purple-950/30 border border-purple-500/20 text-xs text-purple-200 flex items-start gap-3">
-              <Zap className="w-5 h-5 text-pink-400 flex-shrink-0 mt-0.5" />
+            <div className="p-3.5 rounded-xl bg-zinc-900/80 border border-zinc-800 text-xs text-zinc-300 flex items-start gap-3">
+              <Zap className="w-4 h-4 text-purple-400 flex-shrink-0 mt-0.5" />
               <div>
-                <strong className="text-white block mb-0.5">Dica de Ouro para a Simulação (STAR):</strong>
-                {analyzedJob.starTip}
+                <strong className="text-white block mb-0.5 font-mono text-[11px] uppercase">Dica Estratégica (Método STAR):</strong>
+                <span className="text-zinc-300">{analyzedJob.starTip}</span>
               </div>
             </div>
 
             {/* Start Simulation / Pre-Register Action Button */}
-            <div className="pt-2">
+            <div className="pt-1">
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 onClick={() => onStartSimulation(analyzedJob)}
-                className="w-full py-4 bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:opacity-95 text-white font-extrabold text-base rounded-2xl shadow-[0_10px_30px_rgba(236,72,153,0.35)] transition-all flex items-center justify-center gap-3 cursor-pointer"
+                className="w-full py-3.5 bg-white hover:bg-zinc-200 text-black font-bold text-sm rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
-                <span>Fazer Pré-Registro com a Vaga da {analyzedJob.company} (Acesso Antecipado)</span>
-                <ArrowRight className="w-5 h-5" />
+                <span>Inscrever-se com o Perfil da {analyzedJob.company}</span>
+                <ArrowRight className="w-4 h-4" />
               </motion.button>
             </div>
           </motion.div>

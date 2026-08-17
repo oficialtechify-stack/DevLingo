@@ -38,7 +38,9 @@ import {
   Headphones,
   Briefcase,
   Scale,
-  Sparkle
+  Sparkle,
+  Instagram,
+  HelpCircle
 } from 'lucide-react';
 import { auth, db, signInWithGoogle } from './lib/firebase';
 import { onAuthStateChanged, User, signOut } from 'firebase/auth';
@@ -173,26 +175,30 @@ const useAuth = () => useContext(AuthContext)!;
 
 const Navbar = ({ onOpenPreReg }: { onOpenPreReg?: () => void }) => {
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-[#07070c]/90 border-b border-white/10 backdrop-blur-xl">
-      <div className="container-wide h-16 flex items-center justify-between gap-2 px-4 sm:px-6">
-        <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-[#050508]/90 border-b border-zinc-800/80 backdrop-blur-xl">
+      <div className="container-wide h-16 flex items-center justify-between gap-3 px-4 sm:px-6">
+        <div className="flex items-center gap-3 min-w-0">
           <span className="text-white font-extrabold text-xl sm:text-2xl tracking-tight">DevLingo</span>
         </div>
-        <div className="hidden md:flex items-center gap-8 text-white/70 text-sm font-semibold">
-          <a href="#solucoes" className="hover:text-white transition-colors">Como Funciona</a>
-          <a href="#preview" className="hover:text-white transition-colors">Preview</a>
+
+        <div className="hidden md:flex items-center gap-8 text-zinc-400 text-xs sm:text-sm font-medium">
+          <a href="#solucoes" className="hover:text-white transition-colors">Diagnóstico</a>
+          <a href="#diferenciais" className="hover:text-white transition-colors">Pilares</a>
+          <a href="#como-funciona" className="hover:text-white transition-colors">Como Funciona</a>
+          <a href="#preview" className="hover:text-white transition-colors">Terminal</a>
           <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
         </div>
+
         <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
           <motion.button 
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.96 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
             onClick={onOpenPreReg}
-            className="px-4 sm:px-6 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs sm:text-sm font-bold hover:opacity-95 transition-all shadow-lg shadow-purple-500/30 cursor-pointer flex items-center gap-2"
+            className="px-4 sm:px-5 py-2 rounded-xl bg-white hover:bg-zinc-200 text-black text-xs sm:text-sm font-bold transition-all shadow-md cursor-pointer flex items-center gap-2"
           >
-            <UserPlus className="w-4 h-4" />
-            <span>Pré-Registro</span>
+            <UserPlus className="w-3.5 h-3.5" />
+            <span>Garantir Pré-Registro</span>
           </motion.button>
         </div>
       </div>
@@ -286,40 +292,63 @@ const LandingPage = () => {
   }
 
   return (
-    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-[#07070c] text-white flex flex-col selection:bg-purple-600 selection:text-white relative">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-[#050508] text-zinc-100 flex flex-col selection:bg-purple-600 selection:text-white relative">
       <Navbar 
         onOpenPreReg={() => setIsPreRegOpen(true)}
       />
       
       {/* Hero Section */}
-      <section className="w-full max-w-full hero-gradient pt-32 sm:pt-36 pb-16 sm:pb-24 text-center text-white relative px-4 sm:px-6 overflow-hidden">
-        {/* Animated Background Mesh */}
-        <div className="absolute inset-0 pointer-events-none opacity-25 overflow-hidden">
-          <div className="absolute top-10 left-1/4 w-72 sm:w-96 h-72 sm:h-96 bg-purple-500 rounded-full blur-[120px] sm:blur-[140px] animate-pulse" />
-          <div className="absolute top-1/3 right-1/4 w-72 sm:w-96 h-72 sm:h-96 bg-pink-500 rounded-full blur-[120px] sm:blur-[140px] animate-pulse" />
+      <section className="w-full max-w-full tech-grid-bg hero-gradient pt-28 sm:pt-36 pb-16 sm:pb-24 text-center text-white relative px-4 sm:px-6 overflow-hidden border-b border-zinc-800/80">
+        {/* Subtle Ambient Illumination */}
+        <div className="absolute inset-0 pointer-events-none opacity-20 overflow-hidden">
+          <div className="absolute top-10 left-1/4 w-96 h-96 bg-purple-600 rounded-full blur-[140px]" />
+          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-pink-600 rounded-full blur-[140px]" />
         </div>
 
         <div className="container-wide relative z-10 space-y-6 sm:space-y-8 max-w-5xl mx-auto">
+          {/* Executive Pill */}
+          <AnimatedReveal direction="up" delay={0.02}>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-750 text-zinc-300 text-xs font-mono tracking-wide shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
+              <span>Simulador de Entrevistas com Inteligência Artificial para Carreiras Globais</span>
+            </div>
+          </AnimatedReveal>
+
           <AnimatedReveal direction="up" delay={0.05}>
-            <h1 className="text-3xl sm:text-5xl md:text-7xl font-extrabold max-w-5xl mx-auto leading-[1.15] tracking-tight text-white px-2">
-              Passe na entrevista em inglês das maiores <span className="bg-gradient-to-r from-pink-400 via-purple-300 to-indigo-300 bg-clip-text text-transparent">empresas globais do mundo.</span>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold max-w-5xl mx-auto leading-[1.12] tracking-tight text-white px-2">
+              Passe na entrevista em inglês das maiores <span className="bg-gradient-to-r from-pink-400 via-purple-300 to-indigo-300 bg-clip-text text-transparent">Big Techs do mundo.</span>
             </h1>
           </AnimatedReveal>
           
-          <AnimatedReveal direction="up" delay={0.15}>
-            <p className="text-sm sm:text-base md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-normal px-2">
-              Para <strong className="text-white font-semibold">Devs, Designers, Filmmakers, Administradores, Product Managers</strong> e todos que buscam ganhar em dólares. Cole a vaga do LinkedIn e faça seu pré-cadastro gratuito.
+          <AnimatedReveal direction="up" delay={0.12}>
+            <p className="text-sm sm:text-base md:text-lg text-zinc-400 max-w-3xl mx-auto leading-relaxed font-normal px-2">
+              Para <strong className="text-white font-semibold">Devs, Designers, Filmmakers, Administradores e Product Managers</strong> que buscam ganhar em dólares. Cole a vaga do LinkedIn e receba o diagnóstico instantâneo.
             </p>
           </AnimatedReveal>
 
           {/* Interactive LinkedIn Job Input Component */}
-          <AnimatedReveal direction="up" delay={0.25} className="pt-2">
+          <AnimatedReveal direction="up" delay={0.2} className="pt-2">
             <LinkedInJobInput
               onStartSimulation={(job) => {
                 setGuestInterviewJob(job);
                 setIsPreRegOpen(true);
               }}
             />
+          </AnimatedReveal>
+
+          {/* Trust Metric Row */}
+          <AnimatedReveal direction="up" delay={0.25}>
+            <div className="pt-4 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs text-zinc-400 font-mono">
+              <span className="flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-zinc-400" /> Padrão Silicon Valley
+              </span>
+              <span className="flex items-center gap-2">
+                <Zap className="w-4 h-4 text-purple-400" /> Feedback Técnico STAR
+              </span>
+              <span className="flex items-center gap-2">
+                <Lock className="w-4 h-4 text-emerald-400" /> Dados 100% Protegidos
+              </span>
+            </div>
           </AnimatedReveal>
         </div>
       </section>
@@ -328,18 +357,18 @@ const LandingPage = () => {
       <EnterpriseMarquee />
 
       {/* Problem & Fluency Diagnostic Section */}
-      <section id="solucoes" className="w-full max-w-full section-padding bg-[#0a0914] border-t border-b border-white/5 relative overflow-hidden">
+      <section id="solucoes" className="w-full max-w-full section-padding bg-[#07070c] border-b border-zinc-800/80 relative overflow-hidden">
         <div className="container-wide text-center space-y-12 sm:space-y-16">
           <AnimatedReveal direction="up">
-            <div className="space-y-4">
-              <span className="bg-purple-500/20 text-purple-300 border border-purple-500/30 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest inline-flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse" /> O Diagnóstico Técnico
+            <div className="space-y-3.5">
+              <span className="bg-zinc-900 border border-zinc-750 text-zinc-300 px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest inline-flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse" /> Diagnóstico de Fala & Código
               </span>
-              <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-white">
-                Você domina a Stack,<br /> mas o seu inglês te trava na hora da entrevista?
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-white tracking-tight">
+                Você domina a Stack,<br /> mas o seu inglês trava na hora de responder?
               </h2>
-              <p className="text-slate-300 max-w-3xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed">
-                Você lê documentação em inglês o dia todo sem problemas. Mas na hora de defender uma decisão de arquitetura para um Tech Lead gringo, a história é outra. <span className="font-bold text-white">Não é falta de capacidade técnica, é a falta de prática de fala sob pressão técnica.</span>
+              <p className="text-zinc-400 max-w-3xl mx-auto text-sm sm:text-base leading-relaxed">
+                Você lê documentação em inglês o dia todo sem problemas. Mas na hora de defender uma decisão de arquitetura para um Tech Lead gringo, a história é outra. <span className="font-semibold text-white">Não é falta de capacidade técnica: é a falta de prática de fala sob pressão técnica.</span>
               </p>
             </div>
           </AnimatedReveal>
@@ -350,42 +379,42 @@ const LandingPage = () => {
                 <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                   A Armadilha do "Inglês Passivo de Documentação"
                 </h3>
-                <p className="text-slate-300 leading-relaxed text-sm sm:text-base">
-                  O seu vocabulário técnico hoje é gigantesco, mas ele é <span className="italic text-pink-300 font-medium">passivo</span>. Quando você precisa defender o uso de microsserviços, cache distribuído ou passar pelo temido <span className="font-bold text-white">Behavioral Fit (Método STAR)</span>, o cérebro trava na tradução. A DevLingo é o simulador que transforma seu inglês passivo em fala destravada.
+                <p className="text-zinc-400 leading-relaxed text-sm sm:text-base">
+                  O seu vocabulário técnico hoje é gigantesco, mas ele é <span className="text-pink-400 font-medium">passivo</span>. Quando você precisa defender o uso de microsserviços, cache distribuído ou passar pelo temido <span className="font-bold text-white">Behavioral Fit (Método STAR)</span>, o cérebro trava na tradução. A DevLingo é o simulador que transforma seu inglês passivo em fala destravada.
                 </p>
 
-                <div className="space-y-4 pt-1">
+                <div className="space-y-3.5 pt-1">
                   {/* Item 1 */}
-                  <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2.5">
-                    <div className="flex items-center justify-between text-xs sm:text-sm font-semibold text-slate-200">
+                  <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800 space-y-2">
+                    <div className="flex items-center justify-between text-xs sm:text-sm font-semibold text-zinc-200">
                       <span className="flex items-center gap-2">
-                        <BookOpen className="w-4 h-4 text-blue-400" />
+                        <BookOpen className="w-4 h-4 text-purple-400" />
                         <span>Leitura & Código (Passivo)</span>
                       </span>
-                      <span className="text-blue-400 font-mono font-bold">90%</span>
+                      <span className="text-purple-400 font-mono font-bold">90%</span>
                     </div>
-                    <div className="h-2.5 w-full bg-black/40 rounded-full overflow-hidden p-0.5 border border-white/10">
+                    <div className="h-2 w-full bg-zinc-900 rounded-full overflow-hidden p-0.5 border border-zinc-800">
                       <motion.div 
                         initial={{ width: 0 }}
                         whileInView={{ width: "90%" }}
                         viewport={{ once: false }}
                         transition={{ duration: 1, ease: "easeOut" }}
-                        className="h-full rounded-full bg-blue-500 shadow-sm"
+                        className="h-full rounded-full bg-purple-500 shadow-sm"
                       />
                     </div>
-                    <p className="text-[11px] text-slate-400">Ler documentações, Stack Overflow e código-fonte.</p>
+                    <p className="text-[11px] text-zinc-400">Ler documentações, Stack Overflow e código-fonte.</p>
                   </div>
 
                   {/* Item 2 */}
-                  <div className="p-4 rounded-2xl bg-pink-500/[0.04] border border-pink-500/20 space-y-2.5">
-                    <div className="flex items-center justify-between text-xs sm:text-sm font-semibold text-slate-200">
+                  <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800 space-y-2">
+                    <div className="flex items-center justify-between text-xs sm:text-sm font-semibold text-zinc-200">
                       <span className="flex items-center gap-2">
                         <Mic className="w-4 h-4 text-pink-400" />
                         <span>Prática de Conversação (Ativo)</span>
                       </span>
                       <span className="text-pink-400 font-mono font-bold">10%</span>
                     </div>
-                    <div className="h-2.5 w-full bg-black/40 rounded-full overflow-hidden p-0.5 border border-pink-500/20">
+                    <div className="h-2 w-full bg-zinc-900 rounded-full overflow-hidden p-0.5 border border-zinc-800">
                       <motion.div 
                         initial={{ width: 0 }}
                         whileInView={{ width: "10%" }}
@@ -394,22 +423,22 @@ const LandingPage = () => {
                         className="h-full rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-sm"
                       />
                     </div>
-                    <p className="text-[11px] text-pink-300/80">Onde a maioria trava: simular respostas sob pressão técnica.</p>
+                    <p className="text-[11px] text-zinc-400">Onde a maioria trava: simular respostas sob pressão técnica.</p>
                   </div>
                 </div>
               </div>
             </AnimatedReveal>
             
             <AnimatedReveal direction="up" delay={0.25}>
-              <div className="glass-card rounded-3xl p-6 sm:p-8 border-white/10 bg-[#0d0f1a] relative shadow-2xl flex flex-col justify-between gap-6">
+              <div className="rounded-2xl p-6 sm:p-7 border border-zinc-800 bg-zinc-950 shadow-2xl flex flex-col justify-between gap-6">
                 {/* Header do Card */}
-                <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                <div className="flex items-center justify-between border-b border-zinc-850 pb-4">
                   <div className="flex items-center gap-2.5">
                     <div className="w-2.5 h-2.5 rounded-full bg-pink-500 animate-pulse" />
-                    <span className="text-xs font-bold uppercase tracking-wider text-slate-300">Diagnóstico de Fluência</span>
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-300">Diagnóstico de Fluência</span>
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-pink-500/15 border border-pink-500/30 text-pink-300 text-xs font-bold">
-                    Destrave seu Speaking
+                  <span className="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-mono">
+                    Treino de Speaking
                   </span>
                 </div>
 
@@ -418,40 +447,40 @@ const LandingPage = () => {
                   <div className="grid grid-cols-2 gap-4 sm:gap-6 items-end h-44 sm:h-48 px-4">
                     {/* Coluna 1: Passivo */}
                     <div className="flex flex-col items-center justify-end h-full gap-3">
-                      <span className="text-xs font-mono font-bold text-blue-400">90%</span>
-                      <div className="w-full max-w-[80px] bg-blue-500/10 rounded-2xl p-1.5 border border-blue-500/30 flex flex-col justify-end h-32">
+                      <span className="text-xs font-mono font-bold text-purple-400">90%</span>
+                      <div className="w-full max-w-[80px] bg-zinc-900 rounded-xl p-1.5 border border-zinc-800 flex flex-col justify-end h-32">
                         <motion.div 
                           initial={{ height: 0 }}
                           whileInView={{ height: "90%" }}
                           viewport={{ once: false }}
                           transition={{ duration: 1, ease: "easeOut" }}
-                          className="w-full bg-blue-500 rounded-xl"
+                          className="w-full bg-purple-500 rounded-lg"
                         />
                       </div>
-                      <span className="text-xs font-bold text-slate-300 text-center">Leitura Passiva</span>
+                      <span className="text-xs font-medium text-zinc-300 text-center">Leitura Passiva</span>
                     </div>
 
                     {/* Coluna 2: Ativo */}
                     <div className="flex flex-col items-center justify-end h-full gap-3">
                       <span className="text-xs font-mono font-bold text-pink-400">10%</span>
-                      <div className="w-full max-w-[80px] bg-pink-500/10 rounded-2xl p-1.5 border border-pink-500/30 flex flex-col justify-end h-32">
+                      <div className="w-full max-w-[80px] bg-zinc-900 rounded-xl p-1.5 border border-zinc-800 flex flex-col justify-end h-32">
                         <motion.div 
                           initial={{ height: 0 }}
                           whileInView={{ height: "18%" }}
                           viewport={{ once: false }}
                           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                          className="w-full bg-gradient-to-t from-purple-500 to-pink-500 rounded-xl"
+                          className="w-full bg-gradient-to-t from-purple-500 to-pink-500 rounded-lg"
                         />
                       </div>
-                      <span className="text-xs font-bold text-pink-300 text-center">Fala Ativa</span>
+                      <span className="text-xs font-medium text-pink-300 text-center">Fala Ativa</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Rodapé Informativo */}
-                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-3">
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    A DevLingo equilibra essa proporção para você falar com a mesma naturalidade com que lê código.
+                <div className="p-3.5 rounded-xl bg-zinc-900/60 border border-zinc-850 flex items-center gap-3">
+                  <p className="text-xs text-zinc-300 leading-relaxed">
+                    A DevLingo equilibra essa proporção para você falar com a mesma naturalidade com que lê código e documentações.
                   </p>
                 </div>
               </div>
@@ -464,59 +493,69 @@ const LandingPage = () => {
       <TechScenariosExplorer />
 
       {/* Why Section */}
-      <section className="w-full max-w-full section-padding bg-[#07070c] relative overflow-hidden">
+      <section id="diferenciais" className="w-full max-w-full section-padding bg-[#050508] border-b border-zinc-800/80 relative overflow-hidden">
         <div className="container-wide text-center space-y-12 sm:space-y-16">
           <AnimatedReveal direction="up">
-            <div className="space-y-4">
-              <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-white">O Que Torna a DevLingo Única</h2>
-              <p className="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base md:text-lg">Três pilares inteligentes que preparam você para qualquer processo seletivo internacional.</p>
+            <div className="space-y-3.5">
+              <span className="bg-zinc-900 border border-zinc-800 text-zinc-300 px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest inline-flex items-center gap-2">
+                <Code2 className="w-3.5 h-3.5 text-zinc-400" /> Diferenciais da Plataforma
+              </span>
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-white tracking-tight">O Que Torna a DevLingo Única</h2>
+              <p className="text-zinc-400 max-w-2xl mx-auto text-sm sm:text-base">Três pilares inteligentes que preparam você para qualquer processo seletivo internacional.</p>
             </div>
           </AnimatedReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { 
                 icon: Code2, 
                 title: "Engineering Manager Virtual", 
                 desc: "Esqueça cursinhos de inglês genéricos. A nossa simulação assume a persona de um Engineering Manager de Big Tech. Gagueje, erre tempos verbais e treine à vontade num ambiente seguro.",
-                color: "bg-purple-500/20 text-purple-300 border-purple-500/30"
+                badge: "Simulação Realista"
               },
               { 
                 icon: Github, 
                 title: "Entrevistas Vaga-Específicas", 
-                desc: "Cada entrevista é única. O motor analisa os requisitos da vaga que você colar do LinkedIn e gera perguntas focadas na sua stack real (React, AWS, Node, Go, Python, etc).",
-                color: "bg-pink-500/20 text-pink-300 border-pink-500/30",
+                desc: "Cada entrevista é única. O motor analisa os requisitos da vaga que você colar do LinkedIn e gera perguntas focadas na sua stack real (React, AWS, Node, Figma, Premiere, etc).",
+                badge: "100% Personalizado",
                 primary: true
               },
               { 
                 icon: Mic2, 
                 title: "Treine Sua Fala por Voz", 
                 desc: "Responda pelo microfone em inglês. O sistema processa sua resposta, avalia a clareza técnica e devolve sugestões com vocabulário de desenvolvedor sênior nativo.",
-                color: "bg-indigo-500/20 text-indigo-300 border-indigo-500/30"
+                badge: "Feedback Instantâneo"
               }
             ].map((card, i) => (
-              <AnimatedReveal key={i} direction="up" delay={i * 0.15}>
+              <AnimatedReveal key={i} direction="up" delay={i * 0.12}>
                 <motion.div 
-                  whileHover={{ y: -8, scale: 1.02 }}
+                  whileHover={{ y: -4, scale: 1.01 }}
                   transition={{ type: "spring", stiffness: 350, damping: 25 }}
                   className={cn(
-                    "p-8 rounded-3xl text-left space-y-6 transition-all border outline-none h-full relative group cursor-default",
+                    "p-7 rounded-2xl text-left space-y-5 transition-all border outline-none h-full relative group cursor-default bg-zinc-950",
                     card.primary 
-                      ? "bg-gradient-to-b from-purple-900/50 to-slate-900/90 border-purple-500/40 shadow-2xl hover:shadow-purple-500/30 hover:border-purple-400" 
-                      : "glass-card border-white/10 hover:border-purple-500/30 hover:shadow-xl hover:shadow-purple-900/20"
+                      ? "border-zinc-700 shadow-xl" 
+                      : "border-zinc-800/80 hover:border-zinc-700"
                   )}
                 >
-                  <div className={cn("p-3 rounded-2xl w-fit border transition-transform duration-300 group-hover:scale-110", card.color)}>
-                    <card.icon className="w-7 h-7" />
+                  <div className="flex items-center justify-between">
+                    <div className="p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-white">
+                      <card.icon className="w-5 h-5 text-zinc-300" />
+                    </div>
+                    <span className="text-[11px] font-mono font-medium px-2.5 py-0.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400">
+                      {card.badge}
+                    </span>
                   </div>
-                  <h3 className="text-xl font-bold text-white group-hover:text-purple-200 transition-colors">{card.title}</h3>
-                  <p className="text-sm leading-relaxed text-slate-300">
+
+                  <h3 className="text-lg font-bold text-white group-hover:text-purple-200 transition-colors">{card.title}</h3>
+                  <p className="text-xs sm:text-sm leading-relaxed text-zinc-400">
                     {card.desc}
                   </p>
+
                   {card.primary && (
-                    <div className="flex flex-wrap gap-2 pt-2">
+                    <div className="flex flex-wrap gap-1.5 pt-2">
                       {["System Design", "Behavioral Fit", "STAR Method"].map(t => (
-                        <span key={t} className="text-[10px] font-bold uppercase bg-white/10 px-2.5 py-1 rounded-md text-purple-200 border border-white/5">{t}</span>
+                        <span key={t} className="text-[11px] font-mono bg-zinc-900 px-2.5 py-1 rounded-md text-zinc-300 border border-zinc-800">{t}</span>
                       ))}
                     </div>
                   )}
@@ -528,26 +567,26 @@ const LandingPage = () => {
       </section>
 
       {/* Steps Section */}
-      <section className="section-padding bg-[#0a0914] border-t border-b border-white/5 relative overflow-hidden">
-        <div className="container-wide space-y-16">
+      <section id="como-funciona" className="section-padding bg-[#07070c] border-b border-zinc-800/80 relative overflow-hidden">
+        <div className="container-wide space-y-14">
           <AnimatedReveal direction="up">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-              <div className="space-y-4">
-                <span className="text-xs font-bold uppercase tracking-widest text-purple-400 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-pink-400 rounded-full animate-pulse" /> Como Funciona
+              <div className="space-y-3">
+                <span className="text-xs font-mono font-bold uppercase tracking-widest text-zinc-400 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse" /> Como Funciona
                 </span>
-                <h2 className="text-3xl md:text-5xl font-extrabold text-white">3 Passos Para<br /><span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Destravar Seu Inglês Técnico</span></h2>
+                <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">3 Passos Para Destravar Seu Inglês</h2>
               </div>
-              <p className="text-slate-400 text-sm md:text-base max-w-sm">Cole o link da vaga e receba feedback detalhado de pronúncia e vocabulário.</p>
+              <p className="text-zinc-400 text-xs sm:text-sm max-w-sm">Cole o link da vaga e receba feedback detalhado de pronúncia, vocabulário e argumentação técnica.</p>
             </div>
           </AnimatedReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { 
                 step: "01", 
                 title: "Cole a Vaga do LinkedIn", 
-                desc: "Cole a URL ou descrição da vaga dos seus sonhos (Stripe, Nubank, Vercel, Uber, etc).",
+                desc: "Cole a URL ou descrição da vaga dos seus sonhos (Stripe, Airbnb, Netflix, Uber, McKinsey, Deel).",
                 icon: Github
               },
               { 
@@ -559,25 +598,25 @@ const LandingPage = () => {
               { 
                 step: "03", 
                 title: "Receba Dicas Sênior", 
-                desc: "A cada resposta, receba dicas de como engenheiros Staff formulariam as ideias com vocabulário mais assertivo.",
+                desc: "A cada resposta, receba dicas de como profissionais Staff formulariam as ideias com vocabulário mais assertivo.",
                 icon: CheckCircle2
               }
             ].map((step, i) => (
-              <AnimatedReveal key={i} direction="up" delay={i * 0.15}>
+              <AnimatedReveal key={i} direction="up" delay={i * 0.12}>
                 <motion.div 
-                  whileHover={{ y: -6, scale: 1.01 }}
+                  whileHover={{ y: -4, scale: 1.01 }}
                   transition={{ type: "spring", stiffness: 350, damping: 25 }}
-                  className="glass-card p-8 rounded-3xl border-white/10 flex flex-col gap-6 relative group hover:border-purple-500/40 hover:shadow-xl hover:shadow-purple-900/20 transition-all h-full cursor-default"
+                  className="p-7 rounded-2xl border border-zinc-800/80 bg-zinc-950 flex flex-col gap-5 relative group hover:border-zinc-700 transition-all h-full cursor-default"
                 >
                   <div className="flex items-center justify-between">
-                    <div className="p-3 rounded-2xl bg-purple-500/20 text-purple-300 border border-purple-500/30 group-hover:scale-110 transition-transform">
-                      <step.icon className="w-6 h-6" />
+                    <div className="p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-white">
+                      <step.icon className="w-5 h-5 text-zinc-300" />
                     </div>
-                    <div className="text-2xl font-black text-white/20 group-hover:text-purple-400 transition-colors font-mono">{step.step}</div>
+                    <div className="text-2xl font-black text-zinc-700 group-hover:text-zinc-400 transition-colors font-mono">{step.step}</div>
                   </div>
-                  <div className="space-y-3">
-                    <h3 className="text-xl font-bold text-white group-hover:text-purple-200 transition-colors">{step.title}</h3>
-                    <p className="text-sm text-slate-300 leading-relaxed">{step.desc}</p>
+                  <div className="space-y-2">
+                    <h3 className="text-base font-bold text-white">{step.title}</h3>
+                    <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">{step.desc}</p>
                   </div>
                 </motion.div>
               </AnimatedReveal>
@@ -587,46 +626,47 @@ const LandingPage = () => {
       </section>
 
       {/* Experience Preview */}
-      <section id="preview" className="section-padding bg-[#07070c] relative">
-        <div className="container-wide text-center space-y-16">
+      <section id="preview" className="section-padding bg-[#050508] border-b border-zinc-800/80 relative">
+        <div className="container-wide text-center space-y-12 sm:space-y-16">
           <AnimatedReveal direction="up">
-            <div className="space-y-4">
-               <span className="bg-purple-500/20 text-purple-300 border border-purple-500/30 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest inline-flex items-center gap-2">
-                <MessageSquare className="w-3.5 h-3.5" /> Terminal de Avaliação
+            <div className="space-y-3">
+               <span className="bg-zinc-900 border border-zinc-800 text-zinc-300 px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest inline-flex items-center gap-2">
+                <MessageSquare className="w-3.5 h-3.5 text-zinc-400" /> Terminal de Avaliação
               </span>
-              <h2 className="text-3xl md:text-5xl font-extrabold text-white">Veja Como É a Simulação</h2>
-              <p className="text-slate-400 max-w-2xl mx-auto text-base">Perguntas contextualizadas com sua stack e feedbacks com vocabulário técnico refinado.</p>
+              <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight">Veja Como É a Simulação</h2>
+              <p className="text-zinc-400 max-w-2xl mx-auto text-sm sm:text-base">Perguntas contextualizadas com sua stack e feedbacks com vocabulário técnico refinado.</p>
             </div>
           </AnimatedReveal>
 
-          <AnimatedReveal direction="up" delay={0.2}>
-            <div className="max-w-4xl mx-auto p-4 md:p-8 rounded-[2.5rem] glass-card border-purple-500/30 bg-gradient-to-b from-purple-950/30 to-slate-950/80 shadow-2xl relative">
-              <div className="bg-slate-900/90 rounded-2xl overflow-hidden text-left border border-white/10 shadow-2xl">
-                <div className="bg-slate-950/95 px-5 py-3.5 border-b border-white/10 flex flex-wrap items-center justify-between gap-3">
+          <AnimatedReveal direction="up" delay={0.15}>
+            <div className="max-w-4xl mx-auto p-2 sm:p-4 rounded-3xl bg-zinc-950 border border-zinc-800 shadow-2xl relative">
+              <div className="bg-[#09090e] rounded-2xl overflow-hidden text-left border border-zinc-800/80 shadow-2xl">
+                <div className="bg-zinc-950 px-5 py-3.5 border-b border-zinc-800 flex flex-wrap items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-xs font-mono font-semibold text-slate-300 tracking-wide uppercase">
+                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-xs font-mono font-semibold text-zinc-300 tracking-wide uppercase">
                       DevLingo Assessment Console • <span className="text-purple-400">Stripe Mock Session</span>
                     </span>
                   </div>
-                  <div className="flex items-center gap-3 text-[11px] font-mono text-slate-400">
-                    <span className="px-2.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-300">Level: L5 Senior</span>
-                    <span className="hidden sm:inline-block px-2.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">Active Audio: 128kbps</span>
+                  <div className="flex items-center gap-3 text-[11px] font-mono text-zinc-400">
+                    <span className="px-2.5 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300">Level: L5 Senior</span>
+                    <span className="hidden sm:inline-block px-2.5 py-0.5 rounded bg-emerald-950/40 text-emerald-300 border border-emerald-800/50">Active Audio: 128kbps</span>
                   </div>
                 </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-3">
-                  <div className="p-6 border-r border-white/10 bg-slate-950/50 space-y-4">
+                  <div className="p-6 border-r border-zinc-850 bg-zinc-950/40 space-y-4">
                     <div className="space-y-2">
-                      <div className="flex items-center gap-2 text-pink-400 font-bold text-xs uppercase">
+                      <div className="flex items-center gap-2 text-pink-400 font-bold text-xs uppercase font-mono">
                         <span className="w-1.5 h-1.5 bg-pink-400 rounded-full animate-pulse" /> Cenário Ativo
                       </div>
                       <h4 className="font-bold text-sm text-white">System Design & Latency</h4>
-                      <p className="text-xs text-slate-400 leading-relaxed">O entrevistador quer saber como você lida com picos de latência e concorrência em transações de pagamento.</p>
+                      <p className="text-xs text-zinc-400 leading-relaxed">O entrevistador quer saber como você lida com picos de latência e concorrência em transações de pagamento.</p>
                     </div>
 
                     {/* Audio Wave Visualizer Simulation */}
-                    <div className="p-3 rounded-xl bg-purple-950/30 border border-purple-500/20 space-y-2">
-                      <div className="flex items-center justify-between text-[11px] text-purple-300 font-semibold">
+                    <div className="p-3 rounded-xl bg-zinc-900/80 border border-zinc-800 space-y-2">
+                      <div className="flex items-center justify-between text-[11px] text-zinc-300 font-semibold font-mono">
                         <span>Voice Audio Stream</span>
                         <span className="text-[10px] text-emerald-400 font-mono">Live</span>
                       </div>
@@ -647,18 +687,19 @@ const LandingPage = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="md:col-span-2 p-6 space-y-6">
+
+                  <div className="md:col-span-2 p-6 space-y-5">
                     <div className="space-y-4">
-                      <div className="p-4 rounded-2xl bg-purple-950/40 border border-purple-500/30 text-purple-100 text-sm">
+                      <div className="p-4 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-200 text-xs sm:text-sm leading-relaxed">
                         <p className="font-medium">"Welcome! Could you explain how you would design an idempotent payment processing pipeline to prevent duplicate charges during network timeouts?"</p>
                       </div>
                       
                       <div className="space-y-2">
-                        <span className="text-[10px] font-bold text-pink-400 uppercase tracking-widest flex items-center gap-1.5">
+                        <span className="text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-widest flex items-center gap-1.5">
                           <span>Staff Engineer Feedback & Refinement:</span>
-                          <span className="inline-block w-1.5 h-3 bg-pink-400 animate-pulse" />
+                          <span className="inline-block w-1.5 h-3 bg-purple-400 animate-pulse" />
                         </span>
-                        <div className="p-3.5 bg-white/5 rounded-xl border border-white/10 text-xs text-slate-300 leading-relaxed font-mono">
+                        <div className="p-3.5 bg-zinc-950 rounded-xl border border-zinc-800 text-xs text-zinc-300 leading-relaxed font-mono">
                           "We implemented distributed locks with Redis and stored an <span className="text-purple-300 font-bold">idempotency key</span> in PostgreSQL with strict ACID transactions."
                         </div>
                       </div>
@@ -678,28 +719,31 @@ const LandingPage = () => {
       <MethodologyMatrix />
 
       {/* FAQ Section */}
-      <section id="faq" className="section-padding bg-[#0a0914] border-t border-white/5">
+      <section id="faq" className="section-padding bg-[#07070c] border-b border-zinc-800/80">
         <div className="container-wide max-w-3xl space-y-12">
           <AnimatedReveal direction="up">
-            <div className="text-center space-y-4">
-              <h2 className="text-3xl md:text-5xl font-extrabold text-white">Perguntas Frequentes</h2>
-              <p className="text-slate-400">Tire suas dúvidas sobre a plataforma DevLingo.</p>
+            <div className="text-center space-y-3">
+              <span className="bg-zinc-900 border border-zinc-800 text-zinc-300 px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest inline-flex items-center gap-2">
+                <HelpCircle className="w-3.5 h-3.5 text-zinc-400" /> Dúvidas Frequentes
+              </span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">Perguntas Frequentes</h2>
+              <p className="text-zinc-400 text-xs sm:text-sm">Tire suas dúvidas sobre a plataforma DevLingo.</p>
             </div>
           </AnimatedReveal>
           
-          <AnimatedReveal direction="up" delay={0.2}>
-            <div className="glass-card p-6 md:p-8 rounded-3xl border-white/10">
+          <AnimatedReveal direction="up" delay={0.15}>
+            <div className="p-6 md:p-8 rounded-2xl border border-zinc-800 bg-zinc-950">
               <FaqItem 
-                question="A simulação entende de programação e arquitetura de verdade?" 
-                answer="Sim! O simulador é construído com modelos de última geração calibrados com padrões de System Design de Big Techs, trade-offs de escalabilidade, concorrência e a metodologia STAR para perguntas comportamentais."
+                question="A simulação entende de programação, design e negócios de verdade?" 
+                answer="Sim! O simulador é construído com modelos de última geração calibrados com padrões de System Design de Big Techs, trade-offs de escalabilidade, metodologias de design/audiovisual e o framework STAR para perguntas comportamentais."
               />
               <FaqItem 
                 question="Como funciona a simulação com a vaga do LinkedIn?" 
                 answer="Basta colar o link ou a descrição da vaga. O sistema extrai automaticamente a empresa, requisitos de stack e senioridade, conduzindo a entrevista focada exatamente no perfil exigido."
               />
               <FaqItem 
-                question="Preciso pagar para simular?" 
-                answer="Não! Você pode testar simulações completas gratuitamente por voz e texto diretamente na plataforma e garantir seu acesso antecipado no pré-registro."
+                question="Preciso pagar para fazer o pré-cadastro?" 
+                answer="Não! O pré-cadastro é 100% gratuito e garante seu acesso antecipado às primeiras turmas e simulações com voz e IA."
               />
             </div>
           </AnimatedReveal>
@@ -707,47 +751,60 @@ const LandingPage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#07070c] border-t border-white/10 pt-16 pb-12">
+      <footer className="bg-[#050508] pt-16 pb-12">
         <div className="container-wide grid grid-cols-1 md:grid-cols-4 gap-10">
           <div className="space-y-4 md:col-span-2">
             <div className="flex items-center gap-2.5">
               <span className="font-extrabold text-2xl text-white tracking-tight">DevLingo</span>
-              <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                Enterprise Edition
-              </span>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
-              Plataforma de alta performance para engenheiros de software destravarem a fluência técnica em inglês para processos seletivos globais.
+            <p className="text-xs text-zinc-400 leading-relaxed max-w-sm">
+              Plataforma de alta performance para Devs, Designers, Filmmakers, Administradores e Líderes destravarem a fluência profissional em inglês para processos seletivos globais.
             </p>
-            <div className="flex items-center gap-4 text-xs text-slate-500 font-mono">
+            <div className="pt-1">
+              <a
+                href="https://www.instagram.com/techify.oficial"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 hover:border-zinc-700 text-zinc-200 hover:text-white transition-all text-xs font-medium group"
+              >
+                <Instagram className="w-4 h-4 text-pink-400 group-hover:scale-110 transition-transform" />
+                <span>Feito pela <strong className="text-white font-bold underline decoration-zinc-600">Techify</strong> (@techify.oficial)</span>
+              </a>
+            </div>
+            <div className="flex items-center gap-4 text-xs text-zinc-500 font-mono pt-1">
               <span className="flex items-center gap-1">
                 <Lock className="w-3.5 h-3.5 text-emerald-400" /> Dados 100% Confidenciais
               </span>
               <span>•</span>
               <span className="flex items-center gap-1">
-                <ShieldCheck className="w-3.5 h-3.5 text-purple-400" /> Padrão Silicon Valley
+                <ShieldCheck className="w-3.5 h-3.5 text-zinc-400" /> Padrão Silicon Valley
               </span>
             </div>
           </div>
           <div className="space-y-3 text-xs">
             <h4 className="font-bold text-white uppercase tracking-wider font-mono">Navegação</h4>
-            <div className="flex flex-col gap-2 text-slate-400">
+            <div className="flex flex-col gap-2 text-zinc-400">
               <button 
                 onClick={() => setIsPreRegOpen(true)}
-                className="text-left hover:text-pink-300 transition-colors cursor-pointer"
+                className="text-left hover:text-white transition-colors cursor-pointer"
               >
                 Garantir Pré-Registro
               </button>
-              <a href="#solucoes" className="hover:text-purple-300 transition-colors">Diagnóstico de Fluência</a>
-              <a href="#preview" className="hover:text-purple-300 transition-colors">Terminal de Avaliação</a>
-              <a href="#faq" className="hover:text-purple-300 transition-colors">Dúvidas Frequentes</a>
+              <a href="#solucoes" className="hover:text-white transition-colors">Diagnóstico de Fluência</a>
+              <a href="#diferenciais" className="hover:text-white transition-colors">Pilares da Plataforma</a>
+              <a href="#como-funciona" className="hover:text-white transition-colors">Como Funciona</a>
+              <a href="#preview" className="hover:text-white transition-colors">Terminal de Avaliação</a>
+              <a href="#faq" className="hover:text-white transition-colors">Dúvidas Frequentes</a>
             </div>
           </div>
-          <div className="space-y-3 text-xs text-slate-400">
-             <h4 className="font-bold text-white uppercase tracking-wider font-mono">Privacidade</h4>
+          <div className="space-y-3 text-xs text-zinc-400">
+             <h4 className="font-bold text-white uppercase tracking-wider font-mono">Privacidade & Créditos</h4>
              <p>© 2026 DevLingo. Todos os direitos reservados.</p>
-             <p className="text-[11px] text-slate-500">
-               Nenhum dado de vaga ou perfil é compartilhado com recrutadores sem sua permissão expressa.
+             <p className="text-[11px] text-zinc-500">
+               Todas as marcas mencionadas (LinkedIn, Stripe, Airbnb, Netflix) são de propriedade de seus respectivos detentores.
+             </p>
+             <p className="text-[11px] text-zinc-500">
+               Nenhum dado de vaga ou perfil é compartilhado com terceiros sem sua permissão expressa.
              </p>
           </div>
         </div>

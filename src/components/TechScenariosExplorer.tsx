@@ -113,23 +113,23 @@ export const TechScenariosExplorer: React.FC = () => {
   const activeScenario = SCENARIOS.find(s => s.id === activeId) || SCENARIOS[0];
 
   return (
-    <section className="section-padding bg-[#07070c] relative overflow-hidden">
+    <section className="section-padding bg-[#050508] border-b border-zinc-800/80 relative overflow-hidden">
       <div className="container-wide space-y-12">
-        <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-mono font-bold uppercase tracking-wider">
-            <Terminal className="w-3.5 h-3.5" />
+        <div className="text-center max-w-3xl mx-auto space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-mono font-bold uppercase tracking-wider">
+            <Terminal className="w-3.5 h-3.5 text-zinc-400" />
             <span>Simulador de Cenários Profissionais</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
             Perguntas Reais. Respostas de Alto Impacto.
           </h2>
-          <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
+          <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed">
             Veja como profissionais de elite (Engenharia, Design, Vídeo, Gestão e Produto) estruturam respostas em inglês para conquistar vagas internacionais em dólares.
           </p>
         </div>
 
         {/* Tab switcher */}
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5">
           {SCENARIOS.map((scenario) => {
             const Icon = scenario.icon;
             const isSelected = scenario.id === activeId;
@@ -138,13 +138,13 @@ export const TechScenariosExplorer: React.FC = () => {
                 key={scenario.id}
                 onClick={() => setActiveId(scenario.id)}
                 className={cn(
-                  "flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold transition-all cursor-pointer border",
+                  "flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all cursor-pointer border",
                   isSelected
-                    ? "bg-gradient-to-r from-purple-600/30 to-pink-600/30 border-purple-500/60 text-white shadow-lg shadow-purple-900/30"
-                    : "bg-white/[0.03] border-white/10 text-slate-400 hover:text-white hover:bg-white/[0.08]"
+                    ? "bg-zinc-100 border-white text-black font-semibold shadow-sm"
+                    : "bg-zinc-900/90 border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700"
                 )}
               >
-                <Icon className={cn("w-4 h-4", isSelected ? "text-pink-400" : "text-slate-400")} />
+                <Icon className={cn("w-3.5 h-3.5", isSelected ? "text-black" : "text-zinc-400")} />
                 <span>{scenario.category}</span>
               </button>
             );
@@ -155,55 +155,55 @@ export const TechScenariosExplorer: React.FC = () => {
         <AnimatePresence mode="wait">
           <motion.div
             key={activeScenario.id}
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.3 }}
-            className="glass-card rounded-3xl p-6 sm:p-8 md:p-10 border-white/10 bg-slate-950/80 shadow-2xl relative"
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25 }}
+            className="rounded-2xl p-6 sm:p-8 md:p-9 border border-zinc-800 bg-zinc-950 shadow-2xl relative"
           >
             {/* Header */}
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-6">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-850 pb-5">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-mono font-bold text-purple-400 uppercase tracking-wide">
+                  <span className="text-xs font-mono font-bold text-zinc-300 uppercase tracking-wide">
                     {activeScenario.role}
                   </span>
-                  <span className="text-slate-500">•</span>
-                  <span className="text-xs font-mono text-slate-400">
+                  <span className="text-zinc-600">•</span>
+                  <span className="text-xs font-mono text-zinc-400">
                     Target: {activeScenario.companyTarget}
                   </span>
                 </div>
-                <h3 className="text-lg sm:text-2xl font-bold text-white leading-snug">
+                <h3 className="text-base sm:text-xl font-bold text-white leading-snug">
                   "{activeScenario.question}"
                 </h3>
               </div>
-              <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono font-semibold shrink-0">
-                Evaluation Rubric
+              <span className="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-mono shrink-0">
+                Rubrica de Avaliação
               </span>
             </div>
 
             {/* Content grid */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-6">
               {/* Left Column: Context & Terms */}
-              <div className="lg:col-span-5 space-y-5">
-                <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
-                  <div className="text-xs font-bold uppercase tracking-wider text-slate-400 font-mono">
+              <div className="lg:col-span-5 space-y-4">
+                <div className="p-4 rounded-xl bg-zinc-900/70 border border-zinc-800 space-y-1.5">
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 font-mono">
                     Objetivo da Avaliação
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  <p className="text-xs text-zinc-300 leading-relaxed">
                     {activeScenario.context}
                   </p>
                 </div>
 
-                <div className="space-y-2.5">
-                  <div className="text-xs font-bold uppercase tracking-wider text-slate-400 font-mono">
+                <div className="space-y-2">
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 font-mono">
                     Vocabulário Técnico Chave
                   </div>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5">
                     {activeScenario.keyTechnicalTerms.map((term, idx) => (
                       <span
                         key={idx}
-                        className="px-3 py-1 rounded-xl bg-purple-500/15 border border-purple-500/30 text-purple-200 text-xs font-mono font-semibold"
+                        className="px-2.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-mono"
                       >
                         {term}
                       </span>
@@ -211,7 +211,7 @@ export const TechScenariosExplorer: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-emerald-950/20 border border-emerald-500/20 space-y-1">
+                <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-800/40 space-y-1">
                   <div className="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
                     <CheckCircle2 className="w-4 h-4" />
                     <span>Por que essa resposta garante a vaga:</span>
@@ -223,22 +223,22 @@ export const TechScenariosExplorer: React.FC = () => {
               </div>
 
               {/* Right Column: Model Answer */}
-              <div className="lg:col-span-7 flex flex-col justify-between p-6 rounded-2xl bg-black/40 border border-white/10 space-y-4">
+              <div className="lg:col-span-7 flex flex-col justify-between p-5 sm:p-6 rounded-xl bg-zinc-900/90 border border-zinc-800 space-y-4">
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between text-xs font-mono text-slate-400">
-                    <span className="text-purple-300 font-bold uppercase tracking-wider">
+                  <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
+                    <span className="text-zinc-200 font-bold uppercase tracking-wider">
                       Resposta Articulada do Candidato Sênior
                     </span>
-                    <span className="text-slate-500 text-[11px]">Speech Fluency: 98%</span>
+                    <span className="text-zinc-500 text-[11px]">Speech Fluency: 98%</span>
                   </div>
-                  <p className="text-sm sm:text-base text-slate-100 leading-relaxed italic font-serif bg-white/[0.02] p-4 rounded-xl border border-white/5">
+                  <p className="text-xs sm:text-sm text-zinc-100 leading-relaxed italic font-serif bg-zinc-950 p-4 rounded-lg border border-zinc-800">
                     {activeScenario.seniorModelAnswer}
                   </p>
                 </div>
 
-                <div className="pt-2 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
-                  <span className="flex items-center gap-1.5 text-purple-300 font-mono">
-                    <Sparkles className="w-3.5 h-3.5" /> Calibrado com padrões L5/L6 Silicon Valley
+                <div className="pt-2 border-t border-zinc-800 flex items-center justify-between text-xs text-zinc-400">
+                  <span className="flex items-center gap-1.5 text-zinc-400 font-mono">
+                    <Sparkles className="w-3.5 h-3.5 text-purple-400" /> Calibrado com padrões L5/L6 Silicon Valley
                   </span>
                 </div>
               </div>

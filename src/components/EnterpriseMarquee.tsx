@@ -163,9 +163,9 @@ export const EnterpriseMarquee: React.FC = () => {
   return (
     <div className="w-full py-10 bg-[#06060a] border-y border-white/5 relative overflow-hidden">
       <div className="container-wide mb-6 text-center space-y-2">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs font-mono">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs font-mono">
           <Globe2 className="w-3.5 h-3.5 text-purple-400" />
-          <span>Simulações calibradas para os padrões de contratação globais</span>
+          <span>Calibrado para os padrões de contratação das maiores empresas do mundo</span>
         </div>
       </div>
 

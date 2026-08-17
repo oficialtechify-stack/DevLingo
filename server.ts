@@ -166,7 +166,7 @@ async function startServer() {
   // API Routes for Leads (Pré-Registro)
   app.post("/api/leads", async (req, res) => {
     try {
-      const { name, email, phone, area, knownTechs, customTechs, hasCourse, courseDetails, jobContext } = req.body;
+      const { name, email, phone, instagram, area, knownTechs, customTechs, hasCourse, courseDetails, jobContext } = req.body;
       
       if (!name || !email || !phone) {
         return res.status(400).json({ error: "Nome, e-mail e telefone são obrigatórios" });
@@ -177,6 +177,7 @@ async function startServer() {
         name: String(name).trim(),
         email: String(email).trim().toLowerCase(),
         phone: String(phone).trim(),
+        instagram: instagram ? String(instagram).trim() : "",
         area: String(area || "Geral").trim(),
         knownTechs: Array.isArray(knownTechs) ? knownTechs : [],
         customTechs: customTechs ? String(customTechs).trim() : "",
